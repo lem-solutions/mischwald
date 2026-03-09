@@ -9,6 +9,7 @@ const MAX_ZIEHSTAPEL: usize =
 	karten::hauptspiel::KARTEN.len() + karten::alpin::KARTEN.len() + karten::waldrand::KARTEN.len();
 const MAX_SPIELER: usize = 5;
 
+#[allow(clippy::identity_op)]
 fn anz_karten_weglegen(anz_spieler: usize, anz_erweiterungen: usize) -> usize {
 	match (anz_erweiterungen, anz_spieler) {
 		(0, 2) => 30,
@@ -76,7 +77,7 @@ impl Hauptpflanze {
 			.chain(self.unten.iter())
 			.chain(self.links.iter())
 			.chain(self.rechts.iter())
-			.map(|k| *k)
+			.copied()
 	}
 }
 
@@ -90,7 +91,7 @@ impl Spielerstand {
 	fn neu(handkarten: &[&'static GanzeKarte]) -> Self {
 		assert_eq!(handkarten.len(), 6);
 		let mut handkarten_v = MiniVec::new();
-		handkarten_v.extend(handkarten.into_iter());
+		handkarten_v.extend(handkarten);
 		Spielerstand {
 			handkarten: handkarten_v,
 			höhle: 0,
@@ -99,16 +100,12 @@ impl Spielerstand {
 		}
 	}
 
-	pub fn iter_wald<'a>(&'a self) -> impl Iterator<Item = &'static Karte> {
-		self
-			.wald
-			.iter()
-			.map(|hauptpflanze| {
-				[hauptpflanze.hauptpflanze]
-					.into_iter()
-					.chain(hauptpflanze.iter_anlegekarten())
-			})
-			.flatten()
+	pub fn iter_wald(&self) -> impl Iterator<Item = &'static Karte> {
+		self.wald.iter().flat_map(|hauptpflanze| {
+			[hauptpflanze.hauptpflanze]
+				.into_iter()
+				.chain(hauptpflanze.iter_anlegekarten())
+		})
 	}
 }
 impl Default for Spielerstand {
@@ -136,10 +133,10 @@ impl Spielstand {
 		erweiterungen: &[&[&'static GanzeKarte]],
 		rng: &mut R,
 	) -> Self {
-		assert!(anz_spieler <= 5 && anz_spieler >= 2);
+		assert!((2..=5).contains(&anz_spieler));
 
 		let mut ziehstapel: MiniVec<&'static GanzeKarte, MAX_ZIEHSTAPEL> = MiniVec::new();
-		ziehstapel.extend(erweiterungen.into_iter().map(|s| s.into_iter()).flatten());
+		ziehstapel.extend(erweiterungen.iter().flat_map(|s| s.iter()));
 		ziehstapel.shuffle(rng);
 		ziehstapel.truncate(ziehstapel.len() - anz_karten_weglegen(anz_spieler, erweiterungen.len()));
 

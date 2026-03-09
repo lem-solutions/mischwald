@@ -155,17 +155,14 @@ pub enum Dauereffekt {
 }
 impl Dauereffekt {
 	pub(crate) fn ist_einer(&self) -> bool {
-		match self {
-			Dauereffekt::Keiner => false,
-			_ => true,
-		}
+		!matches!(self, Dauereffekt::Keiner)
 	}
 
 	pub(crate) fn endeffekt(&self) -> &Effekt {
 		match self {
 			Self::Keiner => panic!("Dauereffekt::Keiner hat keinen Endeffekt"),
-			Self::BeiKarteAusspielenTyp(_, effekt) => &effekt,
-			Self::BeiKarteAusspielenPositionTyp(_, _, effekt) => &effekt,
+			Self::BeiKarteAusspielenTyp(_, effekt) => effekt,
+			Self::BeiKarteAusspielenPositionTyp(_, _, effekt) => effekt,
 		}
 	}
 }

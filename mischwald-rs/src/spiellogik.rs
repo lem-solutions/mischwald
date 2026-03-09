@@ -672,30 +672,29 @@ impl Spielstand {
 		// REGELFRAGE: Die Anleitung spezifiziert das nachziehen nur erlaubt ist
 		//             wenn der Spieler keine *Bäume* auf der Hand hat.
 		//             Sollten vlt auch Sträucher berücksichtigt werden?
-		if self
+		let hat_bäume = self
 			.nächster_spielerstand()
 			.handkarten
 			.iter()
-			.find(|&&k| match k {
-				GanzeKarte::Hauptpflanze(k) if k.typen.contains(&Typsymbol::Baum) => true,
-				_ => false,
+			.find(|&&k| {
+				matches!(k,
+				GanzeKarte::Hauptpflanze(k) if k.typen.contains(&Typsymbol::Baum))
 			})
-			.is_some()
-		{
-			if spieler.handwechsel_keine_bäume(self) {
-				self.nächster_spielerstand_mut().handkarten.clear();
+			.is_some();
 
-				for _ in 0..6 {
-					let karte = self
-						.karte_ziehen()
-						.expect("Der Winter solle niemals in der ersten Runde kommen");
-					self
-						.nächster_spielerstand_mut()
-						.handkarten
-						.push(karte)
-						.map_err(|_| ())
-						.unwrap();
-				}
+		if hat_bäume && spieler.handwechsel_keine_bäume(self) {
+			self.nächster_spielerstand_mut().handkarten.clear();
+
+			for _ in 0..6 {
+				let karte = self
+					.karte_ziehen()
+					.expect("Der Winter solle niemals in der ersten Runde kommen");
+				self
+					.nächster_spielerstand_mut()
+					.handkarten
+					.push(karte)
+					.map_err(|_| ())
+					.unwrap();
 			}
 		}
 	}

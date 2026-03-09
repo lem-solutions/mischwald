@@ -27,7 +27,7 @@ const fn kartenvorlage_realisieren(vorlage: &Kartenvorlage, baumsymbol: Baumsymb
 	}
 }
 
-const SAMMLUNG_SCHMETTERLINGE: &'static [u32] = &[0, 3, 6, 12, 20, 35, 55];
+const SAMMLUNG_SCHMETTERLINGE: &[u32] = &[0, 3, 6, 12, 20, 35, 55];
 
 pub const SETZLING: Karte = Karte {
 	kosten: 0,
