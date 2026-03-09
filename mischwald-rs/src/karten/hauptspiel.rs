@@ -1,0 +1,128 @@
+use crate::datentypen::*;
+
+mod einzelkarten;
+use einzelkarten::*;
+use super::*;
+
+macro_rules! karte_h {
+	($links:expr, $links_baumsymbol:ident, $rechts:expr, $rechts_baumsymbol:ident) => {
+		&GanzeKarte::ZweigeteiltH {
+			links: &kartenvorlage_realisieren(&$links, Baumsymbol::$links_baumsymbol),
+			rechts: &kartenvorlage_realisieren(&$rechts, Baumsymbol::$rechts_baumsymbol),
+		}
+	}
+}
+macro_rules! karte_v {
+	($oben:expr, $oben_baumsymbol:ident, $unten:expr, $unten_baumsymbol:ident) => {
+		&GanzeKarte::ZweigeteiltV {
+			oben: &kartenvorlage_realisieren(&$oben, Baumsymbol::$oben_baumsymbol),
+			unten: &kartenvorlage_realisieren(&$unten, Baumsymbol::$unten_baumsymbol),
+		}
+	}
+}
+
+/// Alle regulären Spielkarten des Hauptspiels exklusive Winterkarten, Hilfekarten usw.
+pub const KARTEN : [&GanzeKarte;158] = [
+	&Douglasie, &Douglasie, &Douglasie, &Douglasie, &Douglasie, &Douglasie, &Douglasie, 
+	&Eiche, &Eiche, &Eiche, &Eiche, &Eiche, &Eiche, &Eiche,
+	&Kastanie, &Kastanie, &Kastanie, &Kastanie, &Kastanie, &Kastanie, &Kastanie, &Kastanie, &Kastanie, &Kastanie, &Kastanie,
+	&Birke, &Birke, &Birke, &Birke, &Birke, &Birke, &Birke, &Birke, &Birke, &Birke,
+	&Tanne, &Tanne, &Tanne, &Tanne, &Tanne, &Tanne,
+	&Linde, &Linde, &Linde, &Linde, &Linde, &Linde, &Linde, &Linde, &Linde,
+	&Ahorn, &Ahorn, &Ahorn, &Ahorn, &Ahorn, &Ahorn, 
+	&Buche, &Buche, &Buche, &Buche, &Buche, &Buche, &Buche, &Buche, &Buche, &Buche,
+
+	karte_h!(Wolf, Douglasie, Stechmücke, Kastanie),
+	karte_h!(Bechsteinfledermaus, Buche, Siebenschläfer, Eiche),
+	karte_h!(Siebenschläfer, Tanne, BraunesLangohr, Buche),
+	karte_h!(Steinmarder, Buche, Bechsteinfledermaus, Birke),
+	karte_h!(Rothirsch, Tanne, Damhirsch, Ahorn),
+	karte_h!(Feldhase, Eiche, Hufeisennase, Linde),
+	karte_h!(Siebenschläfer, Buche, Mopsfledermaus, Eiche),
+	karte_h!(Hufeisennase, Buche, Siebenschläfer, Douglasie),
+	karte_h!(BraunesLangohr, Ahorn, Dachs, Douglasie),
+	karte_h!(Feldhase, Birke, Rothirsch, Kastanie),
+	karte_h!(Wolf, Ahorn, Hufeisennase, Linde),
+	karte_h!(Mopsfledermaus, Kastanie, Wildschwein, Eiche),
+	karte_h!(Reh, Tanne, Luchs, Linde),
+	karte_h!(Luchs, Kastanie, Fuchs, Douglasie),
+	karte_h!(Mopsfledermaus, Tanne, Steinmarder, Kastanie),
+	karte_h!(Luchs, Douglasie, Feldhase, Birke),
+	karte_h!(Frischling, Eiche, Luchs, Tanne),
+	karte_h!(Damhirsch, Linde, Wildschwein, Douglasie),
+	karte_h!(Dachs, Kastanie, Damhirsch, Birke),
+	karte_h!(Waschbär, Douglasie, Feldhase, Ahorn),
+	karte_h!(Holzbiene, Tanne, Feldhase, Ahorn),
+	karte_h!(Feldhase, Birke, Steinmarder, Kastanie),
+	karte_h!(BraunesLangohr, Ahorn, Feldhase, Linde),
+	karte_h!(Wildschwein, Ahorn, Feldhase, Tanne),
+	karte_h!(Wildschwein, Ahorn, Reh, Kastanie),
+	karte_h!(Fuchs, Linde, Holzbiene, Douglasie),
+	karte_h!(Dachs, Kastanie, Stechmücke, Eiche),
+	karte_h!(Fuchs, Linde, Wolf, Tanne),
+	karte_h!(Damhirsch, Linde, Reh, Birke),
+	karte_h!(Holzbiene, Douglasie, Luchs, Buche),
+	karte_h!(Feldhase, Tanne, Fuchs, Eiche),
+	karte_h!(Fuchs, Buche, Frischling, Eiche),
+	karte_h!(Frischling, Kastanie, Rothirsch, Eiche),
+	karte_h!(Feldhase, Buche, Rothirsch, Kastanie),
+	karte_h!(Luchs, Douglasie, Waschbär, Birke),
+	karte_h!(Wildschwein, Birke, Steinmarder, Eiche),
+	karte_h!(Braunbär, Linde, Waschbär, Tanne),
+	karte_h!(Steinmarder, Ahorn, Braunbär, Kastanie),
+	karte_h!(Stechmücke, Birke, Holzbiene, Douglasie),
+	karte_h!(Reh, Linde, Frischling, Ahorn),
+	karte_h!(Rothirsch, Linde, Braunbär, Buche),
+	karte_h!(Waschbär, Tanne, Reh, Buche),
+	karte_h!(Feldhase, Linde, Dachs, Douglasie),
+	karte_h!(Bechsteinfledermaus, Eiche, Wolf, Tanne),
+
+	karte_v!(Habicht, Tanne, Waldameise, Buche),
+	karte_v!(Eichhörnchen, Kastanie, Glühwürmchen, Ahorn),
+	karte_v!(Waldkauz, Ahorn, Erdkröte, Douglasie),
+	karte_v!(Eichhörnchen, Eiche, Walderdbeeren, Birke),
+	karte_v!(Eichhörnchen, Buche, Feuersalamander, Linde),
+	karte_v!(Buntspecht, Douglasie, Walderdbeeren, Ahorn),
+	karte_v!(Habicht, Eiche, Erdkröte, Ahorn),
+	karte_v!(Gimpel, Tanne, Baumfarn, Linde),
+	karte_v!(Eichelhäher, Ahorn, Fliegenpilz, Tanne),
+	karte_v!(Buchfink, Buche, Erdkröte, Tanne),
+	karte_v!(Waldkauz, Birke, Steinpilz, Douglasie),
+	karte_v!(Eichhörnchen, Douglasie, Erdkröte, Kastanie),
+	karte_v!(Waldkauz, Buche, Walderdbeeren, Ahorn),
+	karte_v!(Eichelhäher, Birke, Baumfarn, Kastanie),
+	karte_v!(Buntspecht, Linde, Steinpilz, Douglasie),
+	karte_v!(Habicht, Douglasie, Moos, Linde),
+	karte_v!(Gimpel, Douglasie, Laubfrosch, Linde),
+	karte_v!(Buchfink, Ahorn, Hirschkäfer, Birke),
+	karte_v!(Habicht, Tanne, Igel, Kastanie),
+	karte_v!(Waldkauz, Buche, Hirschkäfer, Ahorn),
+	karte_v!(Eichelhäher, Kastanie, Baumfarn, Tanne),
+	karte_v!(Buntspecht, Linde, Waldameise, Birke),
+	karte_v!(Gimpel, Douglasie, Parasol, Kastanie),
+	karte_v!(Buchfink, Birke, Waldameise, Buche),
+	karte_v!(Buntspecht, Linde, Erdkröte, Eiche),
+	karte_v!(Buchfink, Ahorn, Parasol, Tanne),
+	karte_v!(Eichelhäher, Birke, Glühwürmchen, Douglasie),
+	karte_v!(Gimpel, Douglasie, Igel, Buche),
+	karte_v!(Schillerfalter, Birke, Laubfrosch, Eiche),
+	karte_v!(Schillerfalter, Linde, Fliegenpilz, Eiche),
+	karte_v!(Schillerfalter, Kastanie, Sumpfschildkröte, Ahorn),
+	karte_v!(Schillerfalter, Kastanie, Moos, Douglasie),
+	karte_v!(Tagpfauenauge, Tanne, Igel, Eiche),
+	karte_v!(Tagpfauenauge, Kastanie, Glühwürmchen, Buche),
+	karte_v!(Tagpfauenauge, Eiche, Pfifferling, Tanne),
+	karte_v!(Tagpfauenauge, Linde, Erdkröte, Buche),
+	karte_v!(Kaisermantel, Eiche, Brombeeren, Tanne),
+	karte_v!(Kaisermantel, Eiche, Brombeeren, Buche),
+	karte_v!(Kaisermantel, Buche, Moos, Linde),
+	karte_v!(Kaisermantel, Eiche, Feuersalamander, Kastanie),
+	karte_v!(GroßerFuchs, Tanne, Brombeeren, Birke),
+	karte_v!(GroßerFuchs, Ahorn, Maulwurf, Eiche),
+	karte_v!(GroßerFuchs, Tanne, Feuersalamander, Douglasie),
+	karte_v!(GroßerFuchs, Buche, Maulwurf, Ahorn),
+	karte_v!(Trauermantel, Ahorn, Sumpfschildkröte, Birke),
+	karte_v!(Trauermantel, Ahorn, Glühwürmchen, Linde),
+	karte_v!(Trauermantel, Birke, Laubfrosch, Eiche),
+	karte_v!(Trauermantel, Kastanie, Pfifferling, Birke),
+];
