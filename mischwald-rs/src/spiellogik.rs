@@ -53,7 +53,11 @@ impl Spielstand {
 
 		match spieler.zugkation(self) {
 			Zugaktion::KarteAusspielen(ausspiel_info) => {
-				let _ = self.karte_bezahlen_und_ausspielen(spieler, &mut zugstatus, ausspiel_info);
+				let _ = self.karte_bezahlen_und_ausspielen(
+					spieler,
+					&mut zugstatus,
+					ausspiel_info,
+				);
 			}
 			Zugaktion::KartenZiehen(ziehen_von1, ziehen_von2_opt) => {
 				for ziehen_von_opt in [Some(ziehen_von1), ziehen_von2_opt] {
@@ -111,7 +115,9 @@ impl Spielstand {
 		zugstatus: &mut Zugstatus,
 		ausspiel_info: Ausspielen,
 	) -> OptionSpielende<()> {
-		assert!(ausspiel_info.karten_idx < self.nächster_spielerstand().handkarten.len());
+		assert!(
+			ausspiel_info.karten_idx < self.nächster_spielerstand().handkarten.len()
+		);
 		let karte = self
 			.nächster_spielerstand_mut()
 			.handkarten
@@ -122,9 +128,12 @@ impl Spielstand {
 				assert!(matches!(karte, GanzeKarte::Hauptpflanze(_)));
 				if let GanzeKarte::Hauptpflanze(k) = karte {
 					let passend = self.bezahlen(spieler, k.kosten, k.baumsymbol);
-					self.hauptpflanze_ausspielen(spieler, zugstatus, k, passend, false)?;
+					self
+						.hauptpflanze_ausspielen(spieler, zugstatus, k, passend, false)?;
 				} else {
-					panic!("Ausspielziel::NeueHauptfplanze, aber Karte ist keine Hauptpflanze");
+					panic!(
+						"Ausspielziel::NeueHauptfplanze, aber Karte ist keine Hauptpflanze"
+					);
 				}
 			}
 			Ausspielziel::AnHauptpflanzeAnlegen { pos, .. } => {
@@ -217,7 +226,9 @@ impl Spielstand {
 	) -> OptionSpielende<()> {
 		let (hauptpflanze_idx, pos) = match ziel {
 			Ausspielziel::NeueHauptpflanze => {
-				panic!("ungültiges Ausspielziel `Ausspielziel::NeueHauptpflanze` für Anlegekarte.")
+				panic!(
+					"ungültiges Ausspielziel `Ausspielziel::NeueHauptpflanze` für Anlegekarte."
+				)
 			}
 			Ausspielziel::AnHauptpflanzeAnlegen {
 				hauptpflanze_idx,
@@ -275,18 +286,33 @@ impl Spielstand {
 				),
 				Dauereffekt::BeiKarteAusspielenTyp(typsymbol, effekt) => {
 					if karte.typen.contains(typsymbol) {
-						self.effekt_ausüben(spieler, zugstatus, effekt, bedingungskontext)?;
+						self.effekt_ausüben(
+							spieler,
+							zugstatus,
+							effekt,
+							bedingungskontext,
+						)?;
 					}
 				}
-				Dauereffekt::BeiKarteAusspielenPositionTyp(pos_bedingung, hp_typ, effekt) => match ziel {
+				Dauereffekt::BeiKarteAusspielenPositionTyp(
+					pos_bedingung,
+					hp_typ,
+					effekt,
+				) => match ziel {
 					Ausspielziel::NeueHauptpflanze => {}
 					Ausspielziel::AnHauptpflanzeAnlegen {
 						hauptpflanze_idx,
 						ref pos,
 					} => {
-						let hauptfplanze = &self.nächster_spielerstand().wald[hauptpflanze_idx].hauptpflanze;
+						let hauptfplanze =
+							&self.nächster_spielerstand().wald[hauptpflanze_idx].hauptpflanze;
 						if pos == pos_bedingung && hauptfplanze.typen.contains(hp_typ) {
-							self.effekt_ausüben(spieler, zugstatus, effekt, bedingungskontext)?;
+							self.effekt_ausüben(
+								spieler,
+								zugstatus,
+								effekt,
+								bedingungskontext,
+							)?;
 						}
 					}
 				},
@@ -295,7 +321,12 @@ impl Spielstand {
 
 		let mut dauereffekt_zurückgehalten_einfügen = true;
 		if !boni_und_soforteffekte_deaktiviert {
-			self.effekt_ausüben(spieler, zugstatus, &karte.soforteffekt, bedingungskontext)?;
+			self.effekt_ausüben(
+				spieler,
+				zugstatus,
+				&karte.soforteffekt,
+				bedingungskontext,
+			)?;
 			if passend {
 				// Sträucher haben eine Sonderregel die besagt, das deren Dauereffekt
 				// bereits in Kraft tritt, wenn der Bonus genutzt wird.
@@ -304,20 +335,27 @@ impl Spielstand {
 				// sein wieder deaktivieren und via
 				// `Zugstatus::zurückgehaltene_dauereffekte` im nächsten Zug zu
 				// aktivieren.
-				if karte.typen.contains(&Typsymbol::Strauch) && karte.dauereffekt.ist_einer() {
+				if karte.typen.contains(&Typsymbol::Strauch)
+					&& karte.dauereffekt.ist_einer()
+				{
 					// Siehe Kommentar für `Self::effekt_ausüben`.
 					assert!(matches!(
 						karte.dauereffekt.endeffekt(),
 						Effekt::EinsKostenlosAblegen(_)
 					));
-					let dauereffekt_idx = self.nächster_spielerstand_mut().dauereffekte.len();
+					let dauereffekt_idx =
+						self.nächster_spielerstand_mut().dauereffekte.len();
 					self
 						.nächster_spielerstand_mut()
 						.dauereffekte
 						.push(&karte.dauereffekt);
 
-					let genutzt =
-						self.effekt_ausüben(spieler, zugstatus, &karte.bonus, bedingungskontext)?;
+					let genutzt = self.effekt_ausüben(
+						spieler,
+						zugstatus,
+						&karte.bonus,
+						bedingungskontext,
+					)?;
 
 					if genutzt {
 						dauereffekt_zurückgehalten_einfügen = false;
@@ -442,22 +480,34 @@ impl Spielstand {
 				self.karten_ziehen_n(anz.try_into().unwrap())?;
 			}
 			Effekt::BeliebigKartenKostenpflichtigSpielen => {
-				while let Some(ausspielen_info) = spieler.bonus_ausspielen_kostenpflichtig(self) {
-					self.karte_bezahlen_und_ausspielen(spieler, zugstatus, ausspielen_info)?;
+				while let Some(ausspielen_info) =
+					spieler.bonus_ausspielen_kostenpflichtig(self)
+				{
+					self.karte_bezahlen_und_ausspielen(
+						spieler,
+						zugstatus,
+						ausspielen_info,
+					)?;
 				}
 			}
 			Effekt::EinsKostenlosAblegen(typsymbol) => {
-				effekt_genutzt = self.eins_kostenlos_ablegen_typ(spieler, zugstatus, typsymbol)?;
+				effekt_genutzt =
+					self.eins_kostenlos_ablegen_typ(spieler, zugstatus, typsymbol)?;
 			}
 			Effekt::EinsKostenlosAblegen2x(typ1, typ2) => {
 				self.eins_kostenlos_ablegen_typ(spieler, zugstatus, typ1);
 				self.eins_kostenlos_ablegen_typ(spieler, zugstatus, typ2);
 			}
 			Effekt::EinsKostenlosAblegenName(bezeichnung) => {
-				if let Some(ausspielen_info) = spieler.bonus_kostenlos_ablegen_name(self, bezeichnung) {
-					self.eins_kostenlos_ablegen(spieler, zugstatus, ausspielen_info, |k| {
-						k.bezeichnung == bezeichnung
-					})?;
+				if let Some(ausspielen_info) =
+					spieler.bonus_kostenlos_ablegen_name(self, bezeichnung)
+				{
+					self.eins_kostenlos_ablegen(
+						spieler,
+						zugstatus,
+						ausspielen_info,
+						|k| k.bezeichnung == bezeichnung,
+					)?;
 				}
 			}
 			Effekt::BeliebigKostenlosAblegen(typsymbol) => {
@@ -471,17 +521,23 @@ impl Spielstand {
 			Effekt::HandkartenHöle => {
 				let ablegen_bools = spieler.handkarten_höhle(self);
 				let spielerstand = self.nächster_spielerstand_mut();
-				let anz_abgelegte_karten = ablegen_bools.iter().filter(|&&b| b).count() as u32;
+				let anz_abgelegte_karten =
+					ablegen_bools.iter().filter(|&&b| b).count() as u32;
 				spielerstand.höhle += anz_abgelegte_karten;
-				spielerstand.handkarten =
-					mit_bitmap_filtern(spielerstand.handkarten.iter().copied(), ablegen_bools);
+				spielerstand.handkarten = mit_bitmap_filtern(
+					spielerstand.handkarten.iter().copied(),
+					ablegen_bools,
+				);
 				self.karten_ziehen_n(anz_abgelegte_karten)?;
 			}
 			Effekt::LichtungHöhle(anz_karten) => {
 				let in_höhle_bools = spieler.lichtung_höhle(self, anz_karten);
 
-				assert!(in_höhle_bools.iter().filter(|&&b| b).count() <= anz_karten as usize);
-				self.lichtung = mit_bitmap_filtern(self.lichtung.iter().copied(), in_höhle_bools);
+				assert!(
+					in_höhle_bools.iter().filter(|&&b| b).count() <= anz_karten as usize
+				);
+				self.lichtung =
+					mit_bitmap_filtern(self.lichtung.iter().copied(), in_höhle_bools);
 				let spielerstand = self.nächster_spielerstand_mut();
 				spielerstand.höhle += anz_karten;
 			}
@@ -528,7 +584,12 @@ impl Spielstand {
 			}
 			Effekt::Bedingung(effekt, bedingung) => {
 				if self.bedingung_prüfen(&bedingung, bedingungskontext) {
-					self.effekt_ausüben(spieler, zugstatus, effekt, bedingungskontext)?;
+					self.effekt_ausüben(
+						spieler,
+						zugstatus,
+						effekt,
+						bedingungskontext,
+					)?;
 				}
 			}
 		}
@@ -543,10 +604,15 @@ impl Spielstand {
 		zugstatus: &mut Zugstatus,
 		typsymbol: Typsymbol,
 	) -> OptionSpielende<bool> {
-		if let Some(ausspielen_info) = spieler.bonus_kostenlos_ablegen_typ(self, typsymbol) {
-			self.eins_kostenlos_ablegen(spieler, zugstatus, ausspielen_info, |k| {
-				k.typen.contains(&typsymbol)
-			})?;
+		if let Some(ausspielen_info) =
+			spieler.bonus_kostenlos_ablegen_typ(self, typsymbol)
+		{
+			self.eins_kostenlos_ablegen(
+				spieler,
+				zugstatus,
+				ausspielen_info,
+				|k| k.typen.contains(&typsymbol),
+			)?;
 			Some(true)
 		} else {
 			Some(false)
@@ -595,7 +661,8 @@ impl Spielstand {
 
 	#[must_use]
 	fn karten_ziehen_n(&mut self, mut anz_karten: u32) -> OptionSpielende<()> {
-		while self.nächster_spielerstand().handkarten.len() < 10 && anz_karten > 0 {
+		while self.nächster_spielerstand().handkarten.len() < 10 && anz_karten > 0
+		{
 			let karte = self.karte_ziehen()?;
 			self
 				.nächster_spielerstand_mut()
@@ -722,10 +789,18 @@ impl Spielstand {
 		}
 	}
 
-	fn bedingung_prüfen(&self, bedingung: &Bedingung, kontext: Bedingungskontext) -> bool {
+	fn bedingung_prüfen(
+		&self,
+		bedingung: &Bedingung,
+		kontext: Bedingungskontext,
+	) -> bool {
 		match bedingung {
-			Bedingung::MeisteNamen(name) => self.bedinung_meiste(|&k| &k.bezeichnung == name),
-			Bedingung::MeisteAnzTyp(typ) => self.bedinung_meiste(|&k| k.typen.contains(typ)),
+			Bedingung::MeisteNamen(name) => {
+				self.bedinung_meiste(|&k| &k.bezeichnung == name)
+			}
+			Bedingung::MeisteAnzTyp(typ) => {
+				self.bedinung_meiste(|&k| k.typen.contains(typ))
+			}
 			Bedingung::MinAnzNamen(min, name) => {
 				self.bedingung_min_anz(*min, |&k| &k.bezeichnung == name)
 			}
@@ -740,23 +815,21 @@ impl Spielstand {
 				};
 				self.bedingung_min_anz(*min, f)
 			}
-			Bedingung::MinAnzTyp(min, typ) => self.bedingung_min_anz(*min, |&k| k.typen.contains(typ)),
+			Bedingung::MinAnzTyp(min, typ) => {
+				self.bedingung_min_anz(*min, |&k| k.typen.contains(typ))
+			}
 			Bedingung::TypGegenüber(typsymbol) => self.nächster_spielerstand().wald
 				[kontext.hauptpflanze_idx]
-				.seite(
-					kontext
-						.kartenpos
-						.expect("Kartenposition muss für `Bedingung::TypGegenüber` gegeben sein"),
-				)
+				.seite(kontext.kartenpos.expect(
+					"Kartenposition muss für `Bedingung::TypGegenüber` gegeben sein",
+				))
 				.iter()
 				.any(|&k| k.typen.contains(typsymbol)),
 			Bedingung::MinAnzNamenAnPlatz(anz, name) => {
 				self.nächster_spielerstand().wald[kontext.hauptpflanze_idx]
-					.seite(
-						kontext
-							.kartenpos
-							.expect("Kartenposition muss für `Bedingung::MinAnzNamenAnPlatz` gegeben sein"),
-					)
+					.seite(kontext.kartenpos.expect(
+						"Kartenposition muss für `Bedingung::MinAnzNamenAnPlatz` gegeben sein",
+					))
 					.iter()
 					.filter(|k| &k.bezeichnung == name)
 					.count()

@@ -15,7 +15,10 @@ pub(super) const Wisent: Kartenvorlage = Kartenvorlage {
 	soforteffekt: Effekt::Extrazug,
 	dauereffekt: Dauereffekt::Keiner,
 	bonus: Effekt::Keiner,
-	punkte: Punkteffekt::ProBaumsymbole(2, &[Baumsymbol::Buche, Baumsymbol::Eiche]),
+	punkte: Punkteffekt::ProBaumsymbole(
+		2,
+		&[Baumsymbol::Buche, Baumsymbol::Eiche],
+	),
 	bezeichnung: "Wisent",
 };
 
@@ -55,7 +58,10 @@ pub(super) const Waldiltis: Kartenvorlage = Kartenvorlage {
 	soforteffekt: Effekt::Keiner,
 	dauereffekt: Dauereffekt::Keiner,
 	bonus: Effekt::Extrazug,
-	punkte: Punkteffekt::Bedingung(10, Bedingung::Hauptpflanzentyp(&[Baum, Strauch])),
+	punkte: Punkteffekt::Bedingung(
+		10,
+		Bedingung::Hauptpflanzentyp(&[Baum, Strauch]),
+	),
 	bezeichnung: "Waldiltis",
 };
 
@@ -75,7 +81,10 @@ pub(super) const Zwergfledermaus: Kartenvorlage = Kartenvorlage {
 	soforteffekt: Effekt::Keiner,
 	dauereffekt: Dauereffekt::Keiner,
 	bonus: Effekt::Keiner,
-	punkte: Punkteffekt::Bedingung(5, Bedingung::MinAnzTypVerschieden(3, Fledermaus)),
+	punkte: Punkteffekt::Bedingung(
+		5,
+		Bedingung::MinAnzTypVerschieden(3, Fledermaus),
+	),
 	bezeichnung: "Zwergfledermaus",
 };
 
@@ -94,7 +103,10 @@ pub(super) const Wildkatze: Kartenvorlage = Kartenvorlage {
 pub(super) const Schleiereule: Kartenvorlage = Kartenvorlage {
 	kosten: 2,
 	typen: &[Vogel, Waldrand],
-	soforteffekt: Effekt::Bedingung(&Effekt::Extrazug, Bedingung::MinAnzTyp(1, Fledermaus)),
+	soforteffekt: Effekt::Bedingung(
+		&Effekt::Extrazug,
+		Bedingung::MinAnzTyp(1, Fledermaus),
+	),
 	dauereffekt: Dauereffekt::Keiner,
 	bonus: Effekt::Keiner,
 	punkte: Punkteffekt::ProTyp(3, Fledermaus),
@@ -137,7 +149,10 @@ pub(super) const Landkärtchen: Kartenvorlage = Kartenvorlage {
 	soforteffekt: Effekt::Keiner,
 	dauereffekt: Dauereffekt::Keiner,
 	bonus: Effekt::Keiner,
-	punkte: Punkteffekt::SammlungTypVersch(Schmetterling, SAMMLUNG_SCHMETTERLINGE),
+	punkte: Punkteffekt::SammlungTypVersch(
+		Schmetterling,
+		SAMMLUNG_SCHMETTERLINGE,
+	),
 	bezeichnung: "Landkärtchen",
 };
 
@@ -176,7 +191,10 @@ pub(super) const Schlehdorn: Kartenvorlage = Kartenvorlage {
 	kosten: 2,
 	typen: &[Waldrand, Strauch],
 	soforteffekt: Effekt::Keiner,
-	dauereffekt: Dauereffekt::BeiKarteAusspielenTyp(Schmetterling, Effekt::KartenZiehen(1)),
+	dauereffekt: Dauereffekt::BeiKarteAusspielenTyp(
+		Schmetterling,
+		Effekt::KartenZiehen(1),
+	),
 	bonus: Effekt::EinsKostenlosAblegen(Schmetterling),
 	punkte: Punkteffekt::Keiner,
 	bezeichnung: "Schlehdorn",
@@ -186,7 +204,10 @@ pub(super) const Haselnuss: Kartenvorlage = Kartenvorlage {
 	kosten: 2,
 	typen: &[Waldrand, Strauch],
 	soforteffekt: Effekt::Keiner,
-	dauereffekt: Dauereffekt::BeiKarteAusspielenTyp(Fledermaus, Effekt::KartenZiehen(1)),
+	dauereffekt: Dauereffekt::BeiKarteAusspielenTyp(
+		Fledermaus,
+		Effekt::KartenZiehen(1),
+	),
 	bonus: Effekt::EinsKostenlosAblegen(Fledermaus),
 	punkte: Punkteffekt::Keiner,
 	bezeichnung: "Haselnuss",
@@ -196,7 +217,10 @@ pub(super) const Holunder: Kartenvorlage = Kartenvorlage {
 	kosten: 2,
 	typen: &[Waldrand, Strauch],
 	soforteffekt: Effekt::Keiner,
-	dauereffekt: Dauereffekt::BeiKarteAusspielenTyp(Pflanze, Effekt::KartenZiehen(1)),
+	dauereffekt: Dauereffekt::BeiKarteAusspielenTyp(
+		Pflanze,
+		Effekt::KartenZiehen(1),
+	),
 	bonus: Effekt::EinsKostenlosAblegen(Pflanze),
 	punkte: Punkteffekt::Keiner,
 	bezeichnung: "Holunder",

@@ -8,7 +8,10 @@ macro_rules! karte_h {
 	($links:expr, $links_baumsymbol:ident, $rechts:expr, $rechts_baumsymbol:ident) => {
 		&GanzeKarte::ZweigeteiltH {
 			links: &kartenvorlage_realisieren(&$links, Baumsymbol::$links_baumsymbol),
-			rechts: &kartenvorlage_realisieren(&$rechts, Baumsymbol::$rechts_baumsymbol),
+			rechts: &kartenvorlage_realisieren(
+				&$rechts,
+				Baumsymbol::$rechts_baumsymbol,
+			),
 		}
 	};
 }

@@ -54,7 +54,10 @@ pub(super) const Alpenfledermaus: Kartenvorlage = Kartenvorlage {
 	soforteffekt: Effekt::Keiner,
 	dauereffekt: Dauereffekt::Keiner,
 	bonus: Effekt::Keiner,
-	punkte: Punkteffekt::Bedingung(5, Bedingung::MinAnzTypVerschieden(3, Fledermaus)),
+	punkte: Punkteffekt::Bedingung(
+		5,
+		Bedingung::MinAnzTypVerschieden(3, Fledermaus),
+	),
 	bezeichnung: "Alpenfledermaus",
 };
 
@@ -76,7 +79,10 @@ pub(super) const AlpenApollofalter: Kartenvorlage = Kartenvorlage {
 	soforteffekt: Effekt::Keiner,
 	dauereffekt: Dauereffekt::Keiner,
 	bonus: Effekt::Keiner,
-	punkte: Punkteffekt::SammlungTypVersch(Schmetterling, SAMMLUNG_SCHMETTERLINGE),
+	punkte: Punkteffekt::SammlungTypVersch(
+		Schmetterling,
+		SAMMLUNG_SCHMETTERLINGE,
+	),
 	bezeichnung: "Alpen-Apollofalter",
 };
 
@@ -84,7 +90,10 @@ pub(super) const Herbsttrompete: Kartenvorlage = Kartenvorlage {
 	kosten: 2,
 	typen: &[Pilz, Alpen],
 	soforteffekt: Effekt::Keiner,
-	dauereffekt: Dauereffekt::BeiKarteAusspielenTyp(Alpen, Effekt::KartenZiehen(1)),
+	dauereffekt: Dauereffekt::BeiKarteAusspielenTyp(
+		Alpen,
+		Effekt::KartenZiehen(1),
+	),
 	bonus: Effekt::Keiner,
 	punkte: Punkteffekt::Keiner,
 	bezeichnung: "Herbsttrompete",
@@ -173,13 +182,14 @@ pub(super) const Zirbelkiefer: GanzeKarte = GanzeKarte::Hauptpflanze(&Karte {
 	bezeichnung: "Zirbelkiefer",
 });
 
-pub(super) const EuropäischeLärche: GanzeKarte = GanzeKarte::Hauptpflanze(&Karte {
-	kosten: 1,
-	baumsymbol: Baumsymbol::Lärche,
-	typen: &[Baum, Alpen],
-	soforteffekt: Effekt::Keiner,
-	dauereffekt: Dauereffekt::Keiner,
-	bonus: Effekt::EinsKostenlosAblegen(Alpen),
-	punkte: Punkteffekt::Konstant(3),
-	bezeichnung: "Europäische Lärche",
-});
+pub(super) const EuropäischeLärche: GanzeKarte =
+	GanzeKarte::Hauptpflanze(&Karte {
+		kosten: 1,
+		baumsymbol: Baumsymbol::Lärche,
+		typen: &[Baum, Alpen],
+		soforteffekt: Effekt::Keiner,
+		dauereffekt: Dauereffekt::Keiner,
+		bonus: Effekt::EinsKostenlosAblegen(Alpen),
+		punkte: Punkteffekt::Konstant(3),
+		bezeichnung: "Europäische Lärche",
+	});

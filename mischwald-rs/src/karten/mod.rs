@@ -14,7 +14,10 @@ struct Kartenvorlage {
 	pub bezeichnung: &'static str, // wird für manche Effekte gebraucht
 }
 
-const fn kartenvorlage_realisieren(vorlage: &Kartenvorlage, baumsymbol: Baumsymbol) -> Karte {
+const fn kartenvorlage_realisieren(
+	vorlage: &Kartenvorlage,
+	baumsymbol: Baumsymbol,
+) -> Karte {
 	Karte {
 		kosten: vorlage.kosten,
 		baumsymbol,

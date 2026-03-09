@@ -5,8 +5,9 @@ use smallvec::SmallVec;
 use crate::{datentypen::*, karten};
 
 // +3 für die Winterkarten nicht nötig, da das Maximum für das Spiel nie ausgereizt wird.
-const MAX_ZIEHSTAPEL: usize =
-	karten::hauptspiel::KARTEN.len() + karten::alpin::KARTEN.len() + karten::waldrand::KARTEN.len();
+const MAX_ZIEHSTAPEL: usize = karten::hauptspiel::KARTEN.len()
+	+ karten::alpin::KARTEN.len()
+	+ karten::waldrand::KARTEN.len();
 const MAX_SPIELER: usize = 5;
 
 #[allow(clippy::identity_op)]
@@ -52,7 +53,10 @@ impl Hauptpflanze {
 		}
 	}
 
-	pub(crate) fn seite(&self, pos: Kartenposition) -> &SmallVec<[&'static Karte; 1]> {
+	pub(crate) fn seite(
+		&self,
+		pos: Kartenposition,
+	) -> &SmallVec<[&'static Karte; 1]> {
 		match pos {
 			Kartenposition::Oben => &self.oben,
 			Kartenposition::Unten => &self.unten,
@@ -61,7 +65,10 @@ impl Hauptpflanze {
 		}
 	}
 
-	pub(crate) fn seite_mut(&mut self, pos: Kartenposition) -> &mut SmallVec<[&'static Karte; 1]> {
+	pub(crate) fn seite_mut(
+		&mut self,
+		pos: Kartenposition,
+	) -> &mut SmallVec<[&'static Karte; 1]> {
 		match pos {
 			Kartenposition::Oben => &mut self.oben,
 			Kartenposition::Unten => &mut self.unten,
@@ -70,7 +77,9 @@ impl Hauptpflanze {
 		}
 	}
 
-	pub(crate) fn iter_anlegekarten(&self) -> impl Iterator<Item = &'static Karte> {
+	pub(crate) fn iter_anlegekarten(
+		&self,
+	) -> impl Iterator<Item = &'static Karte> {
 		self
 			.oben
 			.iter()
@@ -135,10 +144,13 @@ impl Spielstand {
 	) -> Self {
 		assert!((2..=5).contains(&anz_spieler));
 
-		let mut ziehstapel: MiniVec<&'static GanzeKarte, MAX_ZIEHSTAPEL> = MiniVec::new();
+		let mut ziehstapel: MiniVec<&'static GanzeKarte, MAX_ZIEHSTAPEL> =
+			MiniVec::new();
 		ziehstapel.extend(erweiterungen.iter().flat_map(|s| s.iter()));
 		ziehstapel.shuffle(rng);
-		ziehstapel.truncate(ziehstapel.len() - anz_karten_weglegen(anz_spieler, erweiterungen.len()));
+		ziehstapel.truncate(
+			ziehstapel.len() - anz_karten_weglegen(anz_spieler, erweiterungen.len()),
+		);
 
 		let wintergrenze = ziehstapel.len() / 3;
 

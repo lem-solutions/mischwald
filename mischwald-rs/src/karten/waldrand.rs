@@ -8,7 +8,10 @@ macro_rules! karte_h {
 	($links:expr, $links_baumsymbol:ident, $rechts:expr, $rechts_baumsymbol:ident) => {
 		&GanzeKarte::ZweigeteiltH {
 			links: &kartenvorlage_realisieren(&$links, Baumsymbol::$links_baumsymbol),
-			rechts: &kartenvorlage_realisieren(&$rechts, Baumsymbol::$rechts_baumsymbol),
+			rechts: &kartenvorlage_realisieren(
+				&$rechts,
+				Baumsymbol::$rechts_baumsymbol,
+			),
 		}
 	};
 }
@@ -23,21 +26,54 @@ macro_rules! karte_v {
 
 /// Alle Spielkarten der Erweiterung
 pub const KARTEN: [&GanzeKarte; 36] = [
-	&GanzeKarte::Hauptpflanze(&kartenvorlage_realisieren(&Haselnuss, Baumsymbol::Eiche)),
-	&GanzeKarte::Hauptpflanze(&kartenvorlage_realisieren(&Haselnuss, Baumsymbol::Birke)),
-	&GanzeKarte::Hauptpflanze(&kartenvorlage_realisieren(&Haselnuss, Baumsymbol::Kastanie)),
-	&GanzeKarte::Hauptpflanze(&kartenvorlage_realisieren(&Haselnuss, Baumsymbol::Buche)),
-	&GanzeKarte::Hauptpflanze(&kartenvorlage_realisieren(&Holunder, Baumsymbol::Ahorn)),
-	&GanzeKarte::Hauptpflanze(&kartenvorlage_realisieren(&Holunder, Baumsymbol::Eiche)),
-	&GanzeKarte::Hauptpflanze(&kartenvorlage_realisieren(&Holunder, Baumsymbol::Birke)),
-	&GanzeKarte::Hauptpflanze(&kartenvorlage_realisieren(&Holunder, Baumsymbol::Linde)),
+	&GanzeKarte::Hauptpflanze(&kartenvorlage_realisieren(
+		&Haselnuss,
+		Baumsymbol::Eiche,
+	)),
+	&GanzeKarte::Hauptpflanze(&kartenvorlage_realisieren(
+		&Haselnuss,
+		Baumsymbol::Birke,
+	)),
+	&GanzeKarte::Hauptpflanze(&kartenvorlage_realisieren(
+		&Haselnuss,
+		Baumsymbol::Kastanie,
+	)),
+	&GanzeKarte::Hauptpflanze(&kartenvorlage_realisieren(
+		&Haselnuss,
+		Baumsymbol::Buche,
+	)),
+	&GanzeKarte::Hauptpflanze(&kartenvorlage_realisieren(
+		&Holunder,
+		Baumsymbol::Ahorn,
+	)),
+	&GanzeKarte::Hauptpflanze(&kartenvorlage_realisieren(
+		&Holunder,
+		Baumsymbol::Eiche,
+	)),
+	&GanzeKarte::Hauptpflanze(&kartenvorlage_realisieren(
+		&Holunder,
+		Baumsymbol::Birke,
+	)),
+	&GanzeKarte::Hauptpflanze(&kartenvorlage_realisieren(
+		&Holunder,
+		Baumsymbol::Linde,
+	)),
 	&GanzeKarte::Hauptpflanze(&kartenvorlage_realisieren(
 		&Schlehdorn,
 		Baumsymbol::Douglasie,
 	)),
-	&GanzeKarte::Hauptpflanze(&kartenvorlage_realisieren(&Schlehdorn, Baumsymbol::Ahorn)),
-	&GanzeKarte::Hauptpflanze(&kartenvorlage_realisieren(&Schlehdorn, Baumsymbol::Tanne)),
-	&GanzeKarte::Hauptpflanze(&kartenvorlage_realisieren(&Schlehdorn, Baumsymbol::Birke)),
+	&GanzeKarte::Hauptpflanze(&kartenvorlage_realisieren(
+		&Schlehdorn,
+		Baumsymbol::Ahorn,
+	)),
+	&GanzeKarte::Hauptpflanze(&kartenvorlage_realisieren(
+		&Schlehdorn,
+		Baumsymbol::Tanne,
+	)),
+	&GanzeKarte::Hauptpflanze(&kartenvorlage_realisieren(
+		&Schlehdorn,
+		Baumsymbol::Birke,
+	)),
 	karte_h!(Bache, Tanne, Wildkatze, Kastanie),
 	karte_h!(Zwergfledermaus, Linde, Frischling, Tanne),
 	karte_h!(Frischling, Kastanie, Schnake, Buche),

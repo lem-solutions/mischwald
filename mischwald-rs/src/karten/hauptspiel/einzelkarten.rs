@@ -36,7 +36,10 @@ pub(super) const Bechsteinfledermaus: Kartenvorlage = Kartenvorlage {
 	soforteffekt: Effekt::Keiner,
 	dauereffekt: Dauereffekt::Keiner,
 	bonus: Effekt::Keiner,
-	punkte: Punkteffekt::Bedingung(5, Bedingung::MinAnzTypVerschieden(3, Fledermaus)),
+	punkte: Punkteffekt::Bedingung(
+		5,
+		Bedingung::MinAnzTypVerschieden(3, Fledermaus),
+	),
 	bezeichnung: "Bechsteinfledermaus",
 };
 
@@ -176,7 +179,10 @@ pub(super) const BraunesLangohr: Kartenvorlage = Kartenvorlage {
 	soforteffekt: Effekt::Keiner,
 	dauereffekt: Dauereffekt::Keiner,
 	bonus: Effekt::Keiner,
-	punkte: Punkteffekt::Bedingung(5, Bedingung::MinAnzTypVerschieden(3, Fledermaus)),
+	punkte: Punkteffekt::Bedingung(
+		5,
+		Bedingung::MinAnzTypVerschieden(3, Fledermaus),
+	),
 	bezeichnung: "Braunes Langohr",
 };
 
@@ -186,7 +192,10 @@ pub(super) const Mopsfledermaus: Kartenvorlage = Kartenvorlage {
 	soforteffekt: Effekt::Keiner,
 	dauereffekt: Dauereffekt::Keiner,
 	bonus: Effekt::Keiner,
-	punkte: Punkteffekt::Bedingung(5, Bedingung::MinAnzTypVerschieden(3, Fledermaus)),
+	punkte: Punkteffekt::Bedingung(
+		5,
+		Bedingung::MinAnzTypVerschieden(3, Fledermaus),
+	),
 	bezeichnung: "Mopsfledermaus",
 };
 
@@ -196,7 +205,10 @@ pub(super) const Hufeisennase: Kartenvorlage = Kartenvorlage {
 	soforteffekt: Effekt::Keiner,
 	dauereffekt: Dauereffekt::Keiner,
 	bonus: Effekt::Keiner,
-	punkte: Punkteffekt::Bedingung(5, Bedingung::MinAnzTypVerschieden(3, Fledermaus)),
+	punkte: Punkteffekt::Bedingung(
+		5,
+		Bedingung::MinAnzTypVerschieden(3, Fledermaus),
+	),
 	bezeichnung: "Hufeisennase",
 };
 
@@ -217,7 +229,10 @@ pub(super) const Schillerfalter: Kartenvorlage = Kartenvorlage {
 	soforteffekt: Effekt::Keiner,
 	dauereffekt: Dauereffekt::Keiner,
 	bonus: Effekt::Keiner,
-	punkte: Punkteffekt::SammlungTypVersch(Schmetterling, SAMMLUNG_SCHMETTERLINGE),
+	punkte: Punkteffekt::SammlungTypVersch(
+		Schmetterling,
+		SAMMLUNG_SCHMETTERLINGE,
+	),
 	bezeichnung: "Schillerfalter",
 };
 
@@ -227,7 +242,10 @@ pub(super) const Tagpfauenauge: Kartenvorlage = Kartenvorlage {
 	soforteffekt: Effekt::Keiner,
 	dauereffekt: Dauereffekt::Keiner,
 	bonus: Effekt::Keiner,
-	punkte: Punkteffekt::SammlungTypVersch(Schmetterling, SAMMLUNG_SCHMETTERLINGE),
+	punkte: Punkteffekt::SammlungTypVersch(
+		Schmetterling,
+		SAMMLUNG_SCHMETTERLINGE,
+	),
 	bezeichnung: "Tagpfauenauge",
 };
 
@@ -237,7 +255,10 @@ pub(super) const Kaisermantel: Kartenvorlage = Kartenvorlage {
 	soforteffekt: Effekt::Keiner,
 	dauereffekt: Dauereffekt::Keiner,
 	bonus: Effekt::Keiner,
-	punkte: Punkteffekt::SammlungTypVersch(Schmetterling, SAMMLUNG_SCHMETTERLINGE),
+	punkte: Punkteffekt::SammlungTypVersch(
+		Schmetterling,
+		SAMMLUNG_SCHMETTERLINGE,
+	),
 	bezeichnung: "Kaisermantel",
 };
 
@@ -247,7 +268,10 @@ pub(super) const GroßerFuchs: Kartenvorlage = Kartenvorlage {
 	soforteffekt: Effekt::Keiner,
 	dauereffekt: Dauereffekt::Keiner,
 	bonus: Effekt::Keiner,
-	punkte: Punkteffekt::SammlungTypVersch(Schmetterling, SAMMLUNG_SCHMETTERLINGE),
+	punkte: Punkteffekt::SammlungTypVersch(
+		Schmetterling,
+		SAMMLUNG_SCHMETTERLINGE,
+	),
 	bezeichnung: "GroßerFuchs",
 };
 
@@ -257,7 +281,10 @@ pub(super) const Trauermantel: Kartenvorlage = Kartenvorlage {
 	soforteffekt: Effekt::Keiner,
 	dauereffekt: Dauereffekt::Keiner,
 	bonus: Effekt::Keiner,
-	punkte: Punkteffekt::SammlungTypVersch(Schmetterling, SAMMLUNG_SCHMETTERLINGE),
+	punkte: Punkteffekt::SammlungTypVersch(
+		Schmetterling,
+		SAMMLUNG_SCHMETTERLINGE,
+	),
 	bezeichnung: "Trauermantel",
 };
 
@@ -265,7 +292,10 @@ pub(super) const Pfifferling: Kartenvorlage = Kartenvorlage {
 	kosten: 2,
 	typen: &[Pilz],
 	soforteffekt: Effekt::Keiner,
-	dauereffekt: Dauereffekt::BeiKarteAusspielenTyp(Baum, Effekt::KartenZiehen(1)),
+	dauereffekt: Dauereffekt::BeiKarteAusspielenTyp(
+		Baum,
+		Effekt::KartenZiehen(1),
+	),
 	bonus: Effekt::Keiner,
 	punkte: Punkteffekt::Keiner,
 	bezeichnung: "Pfifferling",
@@ -347,7 +377,10 @@ pub(super) const Erdkröte: Kartenvorlage = Kartenvorlage {
 	soforteffekt: Effekt::Keiner,
 	dauereffekt: Dauereffekt::Keiner,
 	bonus: Effekt::Keiner,
-	punkte: Punkteffekt::Bedingung(5, Bedingung::MinAnzNamenAnPlatz(2, "Erdkröte")),
+	punkte: Punkteffekt::Bedingung(
+		5,
+		Bedingung::MinAnzNamenAnPlatz(2, "Erdkröte"),
+	),
 	bezeichnung: "Erdkröte",
 };
 
@@ -365,7 +398,10 @@ pub(super) const Fliegenpilz: Kartenvorlage = Kartenvorlage {
 	kosten: 2,
 	typen: &[Pilz],
 	soforteffekt: Effekt::Keiner,
-	dauereffekt: Dauereffekt::BeiKarteAusspielenTyp(Pfotentier, Effekt::KartenZiehen(1)),
+	dauereffekt: Dauereffekt::BeiKarteAusspielenTyp(
+		Pfotentier,
+		Effekt::KartenZiehen(1),
+	),
 	bonus: Effekt::Keiner,
 	punkte: Punkteffekt::Keiner,
 	bezeichnung: "Fliegenpilz",
