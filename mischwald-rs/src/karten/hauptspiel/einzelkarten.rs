@@ -10,7 +10,7 @@ use Typsymbol::*;
 //      Holzbiene: Bringt selbst keine Punkte, erhöht aber die Anzahl Bäume, an dem sie liegt, um 1
 
 // Horizontal
-pub(super) const Feldhase : Kartenvorlage = Kartenvorlage {
+pub(super) const Feldhase: Kartenvorlage = Kartenvorlage {
 	kosten: 0,
 	typen: &[Pfotentier],
 	soforteffekt: Effekt::Keiner,
@@ -20,7 +20,7 @@ pub(super) const Feldhase : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Feldhase",
 };
 
-pub(super) const Dachs : Kartenvorlage = Kartenvorlage {
+pub(super) const Dachs: Kartenvorlage = Kartenvorlage {
 	kosten: 1,
 	typen: &[Pfotentier],
 	soforteffekt: Effekt::Keiner,
@@ -30,7 +30,7 @@ pub(super) const Dachs : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Dachs",
 };
 
-pub(super) const Bechsteinfledermaus : Kartenvorlage = Kartenvorlage {
+pub(super) const Bechsteinfledermaus: Kartenvorlage = Kartenvorlage {
 	kosten: 1,
 	typen: &[Fledermaus],
 	soforteffekt: Effekt::Keiner,
@@ -40,7 +40,7 @@ pub(super) const Bechsteinfledermaus : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Bechsteinfledermaus",
 };
 
-pub(super) const Wolf : Kartenvorlage = Kartenvorlage {
+pub(super) const Wolf: Kartenvorlage = Kartenvorlage {
 	kosten: 3,
 	typen: &[Pfotentier],
 	soforteffekt: Effekt::KartenZiehenAnzTyp(Typsymbol::Hirsch),
@@ -50,7 +50,7 @@ pub(super) const Wolf : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Wolf",
 };
 
-pub(super) const Waschbär : Kartenvorlage = Kartenvorlage {
+pub(super) const Waschbär: Kartenvorlage = Kartenvorlage {
 	kosten: 1,
 	typen: &[Pfotentier],
 	soforteffekt: Effekt::HandkartenHöle,
@@ -60,7 +60,7 @@ pub(super) const Waschbär : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Waschbär",
 };
 
-pub(super) const Reh : Kartenvorlage = Kartenvorlage {
+pub(super) const Reh: Kartenvorlage = Kartenvorlage {
 	kosten: 2,
 	typen: &[Hirsch, Paarhufer],
 	soforteffekt: Effekt::Keiner,
@@ -70,7 +70,7 @@ pub(super) const Reh : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Reh",
 };
 
-pub(super) const Rothirsch : Kartenvorlage = Kartenvorlage {
+pub(super) const Rothirsch: Kartenvorlage = Kartenvorlage {
 	kosten: 2,
 	typen: &[Hirsch, Paarhufer],
 	soforteffekt: Effekt::Keiner,
@@ -405,7 +405,11 @@ pub(super) const Parasol: Kartenvorlage = Kartenvorlage {
 	kosten: 2,
 	typen: &[Pilz],
 	soforteffekt: Effekt::Keiner,
-	dauereffekt: Dauereffekt::BeiKarteAusspielenPositionTyp(Kartenposition::Unten, Baum,  Effekt::KartenZiehen(1)),
+	dauereffekt: Dauereffekt::BeiKarteAusspielenPositionTyp(
+		Kartenposition::Unten,
+		Baum,
+		Effekt::KartenZiehen(1),
+	),
 	bonus: Effekt::Keiner,
 	punkte: Punkteffekt::Keiner,
 	bezeichnung: "Parasol",
@@ -475,7 +479,11 @@ pub(super) const Steinpilz: Kartenvorlage = Kartenvorlage {
 	kosten: 2,
 	typen: &[Pilz],
 	soforteffekt: Effekt::Keiner,
-	dauereffekt: Dauereffekt::BeiKarteAusspielenPositionTyp(Kartenposition::Unten, Baum, Effekt::KartenZiehen(1)),
+	dauereffekt: Dauereffekt::BeiKarteAusspielenPositionTyp(
+		Kartenposition::Unten,
+		Baum,
+		Effekt::KartenZiehen(1),
+	),
 	bonus: Effekt::Keiner,
 	punkte: Punkteffekt::Keiner,
 	bezeichnung: "Steinpilz",
@@ -503,7 +511,7 @@ pub(super) const Eichhörnchen: Kartenvorlage = Kartenvorlage {
 
 // Bäume
 
-pub(super) const Douglasie : GanzeKarte = GanzeKarte::Hauptpflanze(&Karte { 
+pub(super) const Douglasie: GanzeKarte = GanzeKarte::Hauptpflanze(&Karte {
 	kosten: 2,
 	baumsymbol: Baumsymbol::Douglasie,
 	typen: &[Baum],
@@ -514,7 +522,7 @@ pub(super) const Douglasie : GanzeKarte = GanzeKarte::Hauptpflanze(&Karte {
 	bezeichnung: "Douglasie",
 });
 
-pub(super) const Eiche : GanzeKarte = GanzeKarte::Hauptpflanze(&Karte {
+pub(super) const Eiche: GanzeKarte = GanzeKarte::Hauptpflanze(&Karte {
 	kosten: 2,
 	baumsymbol: Baumsymbol::Eiche,
 	typen: &[Baum],
@@ -525,7 +533,7 @@ pub(super) const Eiche : GanzeKarte = GanzeKarte::Hauptpflanze(&Karte {
 	bezeichnung: "Eiche",
 });
 
-pub(super) const Birke : GanzeKarte = GanzeKarte::Hauptpflanze(&Karte {
+pub(super) const Birke: GanzeKarte = GanzeKarte::Hauptpflanze(&Karte {
 	kosten: 0,
 	baumsymbol: Baumsymbol::Birke,
 	typen: &[Baum],
@@ -536,18 +544,18 @@ pub(super) const Birke : GanzeKarte = GanzeKarte::Hauptpflanze(&Karte {
 	bezeichnung: "Birke",
 });
 
-pub(super) const Ahorn : GanzeKarte = GanzeKarte::Hauptpflanze(&Karte {
+pub(super) const Ahorn: GanzeKarte = GanzeKarte::Hauptpflanze(&Karte {
 	kosten: 2,
 	baumsymbol: Baumsymbol::Ahorn,
 	typen: &[Baum],
 	soforteffekt: Effekt::Keiner,
 	dauereffekt: Dauereffekt::Keiner,
 	bonus: Effekt::Keiner,
-	punkte: Punkteffekt::ProTyp(1,Baum),
-	bezeichnung: "Ahorn"
+	punkte: Punkteffekt::ProTyp(1, Baum),
+	bezeichnung: "Ahorn",
 });
 
-pub(super) const Tanne : GanzeKarte = GanzeKarte::Hauptpflanze(&Karte {
+pub(super) const Tanne: GanzeKarte = GanzeKarte::Hauptpflanze(&Karte {
 	kosten: 2,
 	baumsymbol: Baumsymbol::Tanne,
 	typen: &[Baum],
@@ -555,31 +563,36 @@ pub(super) const Tanne : GanzeKarte = GanzeKarte::Hauptpflanze(&Karte {
 	dauereffekt: Dauereffekt::Keiner,
 	bonus: Effekt::EinsKostenlosAblegen(Pfotentier),
 	punkte: Punkteffekt::ProKarteAnHauptpflanze(2),
-	bezeichnung: "Tanne"
+	bezeichnung: "Tanne",
 });
 
-pub(super) const Linde : GanzeKarte = GanzeKarte::Hauptpflanze(&Karte {
+pub(super) const Linde: GanzeKarte = GanzeKarte::Hauptpflanze(&Karte {
 	kosten: 1,
 	baumsymbol: Baumsymbol::Linde,
 	typen: &[Baum],
 	soforteffekt: Effekt::Keiner,
 	dauereffekt: Dauereffekt::Keiner,
 	bonus: Effekt::Keiner,
-	punkte: Punkteffekt::BedingungOder{bedingung: Bedingung::MeisteNamen("Linde"), wenn: 3, sonst: 1},
-	bezeichnung: "Linde"
+	punkte: Punkteffekt::BedingungOder {
+		bedingung: Bedingung::MeisteNamen("Linde"),
+		wenn: 3,
+		sonst: 1,
+	},
+	bezeichnung: "Linde",
 });
 
-pub(super) const Kastanie : GanzeKarte = GanzeKarte::Hauptpflanze(&Karte {
-	kosten: 1, baumsymbol: Baumsymbol::Kastanie,
+pub(super) const Kastanie: GanzeKarte = GanzeKarte::Hauptpflanze(&Karte {
+	kosten: 1,
+	baumsymbol: Baumsymbol::Kastanie,
 	typen: &[Baum],
 	soforteffekt: Effekt::Keiner,
 	dauereffekt: Dauereffekt::Keiner,
 	bonus: Effekt::Keiner,
-	punkte: Punkteffekt::SammlungName(&[1,4,9,16,25,36,49]),
-	bezeichnung: "Kastanie"
+	punkte: Punkteffekt::SammlungName(&[1, 4, 9, 16, 25, 36, 49]),
+	bezeichnung: "Kastanie",
 });
 
-pub(super) const Buche : GanzeKarte = GanzeKarte::Hauptpflanze(&Karte {
+pub(super) const Buche: GanzeKarte = GanzeKarte::Hauptpflanze(&Karte {
 	kosten: 1,
 	baumsymbol: Baumsymbol::Buche,
 	typen: &[Baum],
@@ -587,5 +600,5 @@ pub(super) const Buche : GanzeKarte = GanzeKarte::Hauptpflanze(&Karte {
 	dauereffekt: Dauereffekt::Keiner,
 	bonus: Effekt::Keiner,
 	punkte: Punkteffekt::Bedingung(5, Bedingung::MinAnzNamen(4, "Buche")),
-	bezeichnung: "Buche"
+	bezeichnung: "Buche",
 });

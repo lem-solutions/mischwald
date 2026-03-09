@@ -1,8 +1,8 @@
 use crate::datentypen::*;
 
 mod einzelkarten;
-use einzelkarten::*;
 use super::*;
+use einzelkarten::*;
 
 macro_rules! karte_h {
 	($links:expr, $links_baumsymbol:ident, $rechts:expr, $rechts_baumsymbol:ident) => {
@@ -10,7 +10,7 @@ macro_rules! karte_h {
 			links: &kartenvorlage_realisieren(&$links, Baumsymbol::$links_baumsymbol),
 			rechts: &kartenvorlage_realisieren(&$rechts, Baumsymbol::$rechts_baumsymbol),
 		}
-	}
+	};
 }
 macro_rules! karte_v {
 	($oben:expr, $oben_baumsymbol:ident, $unten:expr, $unten_baumsymbol:ident) => {
@@ -18,20 +18,77 @@ macro_rules! karte_v {
 			oben: &kartenvorlage_realisieren(&$oben, Baumsymbol::$oben_baumsymbol),
 			unten: &kartenvorlage_realisieren(&$unten, Baumsymbol::$unten_baumsymbol),
 		}
-	}
+	};
 }
 
 /// Alle regulären Spielkarten des Hauptspiels exklusive Winterkarten, Hilfekarten usw.
-pub const KARTEN : [&GanzeKarte;158] = [
-	&Douglasie, &Douglasie, &Douglasie, &Douglasie, &Douglasie, &Douglasie, &Douglasie, 
-	&Eiche, &Eiche, &Eiche, &Eiche, &Eiche, &Eiche, &Eiche,
-	&Kastanie, &Kastanie, &Kastanie, &Kastanie, &Kastanie, &Kastanie, &Kastanie, &Kastanie, &Kastanie, &Kastanie, &Kastanie,
-	&Birke, &Birke, &Birke, &Birke, &Birke, &Birke, &Birke, &Birke, &Birke, &Birke,
-	&Tanne, &Tanne, &Tanne, &Tanne, &Tanne, &Tanne,
-	&Linde, &Linde, &Linde, &Linde, &Linde, &Linde, &Linde, &Linde, &Linde,
-	&Ahorn, &Ahorn, &Ahorn, &Ahorn, &Ahorn, &Ahorn, 
-	&Buche, &Buche, &Buche, &Buche, &Buche, &Buche, &Buche, &Buche, &Buche, &Buche,
-
+pub const KARTEN: [&GanzeKarte; 158] = [
+	&Douglasie,
+	&Douglasie,
+	&Douglasie,
+	&Douglasie,
+	&Douglasie,
+	&Douglasie,
+	&Douglasie,
+	&Eiche,
+	&Eiche,
+	&Eiche,
+	&Eiche,
+	&Eiche,
+	&Eiche,
+	&Eiche,
+	&Kastanie,
+	&Kastanie,
+	&Kastanie,
+	&Kastanie,
+	&Kastanie,
+	&Kastanie,
+	&Kastanie,
+	&Kastanie,
+	&Kastanie,
+	&Kastanie,
+	&Kastanie,
+	&Birke,
+	&Birke,
+	&Birke,
+	&Birke,
+	&Birke,
+	&Birke,
+	&Birke,
+	&Birke,
+	&Birke,
+	&Birke,
+	&Tanne,
+	&Tanne,
+	&Tanne,
+	&Tanne,
+	&Tanne,
+	&Tanne,
+	&Linde,
+	&Linde,
+	&Linde,
+	&Linde,
+	&Linde,
+	&Linde,
+	&Linde,
+	&Linde,
+	&Linde,
+	&Ahorn,
+	&Ahorn,
+	&Ahorn,
+	&Ahorn,
+	&Ahorn,
+	&Ahorn,
+	&Buche,
+	&Buche,
+	&Buche,
+	&Buche,
+	&Buche,
+	&Buche,
+	&Buche,
+	&Buche,
+	&Buche,
+	&Buche,
 	karte_h!(Wolf, Douglasie, Stechmücke, Kastanie),
 	karte_h!(Bechsteinfledermaus, Buche, Siebenschläfer, Eiche),
 	karte_h!(Siebenschläfer, Tanne, BraunesLangohr, Buche),
@@ -76,7 +133,6 @@ pub const KARTEN : [&GanzeKarte;158] = [
 	karte_h!(Waschbär, Tanne, Reh, Buche),
 	karte_h!(Feldhase, Linde, Dachs, Douglasie),
 	karte_h!(Bechsteinfledermaus, Eiche, Wolf, Tanne),
-
 	karte_v!(Habicht, Tanne, Waldameise, Buche),
 	karte_v!(Eichhörnchen, Kastanie, Glühwürmchen, Ahorn),
 	karte_v!(Waldkauz, Ahorn, Erdkröte, Douglasie),

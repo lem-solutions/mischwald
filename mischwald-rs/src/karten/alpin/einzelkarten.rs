@@ -8,7 +8,7 @@ use Typsymbol::*;
 //      „Schneehase“ zählt als „Hase“ für die Wertung
 
 // Horizontal
-pub(super) const Gämse : Kartenvorlage = Kartenvorlage {
+pub(super) const Gämse: Kartenvorlage = Kartenvorlage {
 	kosten: 1,
 	typen: &[Paarhufer, Alpen],
 	soforteffekt: Effekt::Keiner,
@@ -18,7 +18,7 @@ pub(super) const Gämse : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Gämse",
 };
 
-pub(super) const Auerhuhn : Kartenvorlage = Kartenvorlage {
+pub(super) const Auerhuhn: Kartenvorlage = Kartenvorlage {
 	kosten: 1,
 	typen: &[Vogel, Alpen],
 	soforteffekt: Effekt::EinsKostenlosAblegen(Pflanze),
@@ -28,7 +28,7 @@ pub(super) const Auerhuhn : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Auerhuhn",
 };
 
-pub(super) const Schneehase : Kartenvorlage = Kartenvorlage {
+pub(super) const Schneehase: Kartenvorlage = Kartenvorlage {
 	kosten: 0,
 	typen: &[Pfotentier, Alpen],
 	soforteffekt: Effekt::Keiner,
@@ -38,7 +38,7 @@ pub(super) const Schneehase : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Schneehase",
 };
 
-pub(super) const Alpenmurmeltier : Kartenvorlage = Kartenvorlage {
+pub(super) const Alpenmurmeltier: Kartenvorlage = Kartenvorlage {
 	kosten: 1,
 	typen: &[Pfotentier, Alpen],
 	soforteffekt: Effekt::Keiner,
@@ -48,7 +48,7 @@ pub(super) const Alpenmurmeltier : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Alpenmurmeltier",
 };
 
-pub(super) const Alpenfledermaus : Kartenvorlage = Kartenvorlage {
+pub(super) const Alpenfledermaus: Kartenvorlage = Kartenvorlage {
 	kosten: 1,
 	typen: &[Fledermaus, Alpen],
 	soforteffekt: Effekt::Keiner,
@@ -58,7 +58,7 @@ pub(super) const Alpenfledermaus : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Alpenfledermaus",
 };
 
-pub(super) const Steinbock : Kartenvorlage = Kartenvorlage {
+pub(super) const Steinbock: Kartenvorlage = Kartenvorlage {
 	kosten: 3,
 	typen: &[Paarhufer, Alpen],
 	soforteffekt: Effekt::Extrazug,
@@ -68,10 +68,9 @@ pub(super) const Steinbock : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Steinbock",
 };
 
-
 // Vertikal
 
-pub(super) const AlpenApollofalter : Kartenvorlage = Kartenvorlage {
+pub(super) const AlpenApollofalter: Kartenvorlage = Kartenvorlage {
 	kosten: 0,
 	typen: &[Schmetterling, Insekt, Alpen],
 	soforteffekt: Effekt::Keiner,
@@ -81,7 +80,7 @@ pub(super) const AlpenApollofalter : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Alpen-Apollofalter",
 };
 
-pub(super) const Herbsttrompete : Kartenvorlage = Kartenvorlage {
+pub(super) const Herbsttrompete: Kartenvorlage = Kartenvorlage {
 	kosten: 2,
 	typen: &[Pilz, Alpen],
 	soforteffekt: Effekt::Keiner,
@@ -91,7 +90,7 @@ pub(super) const Herbsttrompete : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Herbsttrompete",
 };
 
-pub(super) const Steinadler : Kartenvorlage = Kartenvorlage {
+pub(super) const Steinadler: Kartenvorlage = Kartenvorlage {
 	kosten: 1,
 	typen: &[Vogel, Alpen],
 	soforteffekt: Effekt::Keiner,
@@ -101,7 +100,7 @@ pub(super) const Steinadler : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Steinadler",
 };
 
-pub(super) const Kolkrabe : Kartenvorlage = Kartenvorlage {
+pub(super) const Kolkrabe: Kartenvorlage = Kartenvorlage {
 	kosten: 1,
 	typen: &[Vogel, Alpen],
 	soforteffekt: Effekt::KartenZiehen(1),
@@ -111,7 +110,7 @@ pub(super) const Kolkrabe : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Kolkrabe",
 };
 
-pub(super) const Heidelbeere : Kartenvorlage = Kartenvorlage {
+pub(super) const Heidelbeere: Kartenvorlage = Kartenvorlage {
 	kosten: 1,
 	typen: &[Pflanze, Alpen],
 	soforteffekt: Effekt::Keiner,
@@ -121,7 +120,7 @@ pub(super) const Heidelbeere : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Heidelbeere",
 };
 
-pub(super) const Bartgeier : Kartenvorlage = Kartenvorlage {
+pub(super) const Bartgeier: Kartenvorlage = Kartenvorlage {
 	kosten: 1,
 	typen: &[Vogel, Alpen],
 	soforteffekt: Effekt::LichtungHöhle(2),
@@ -131,7 +130,7 @@ pub(super) const Bartgeier : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Bartgeier",
 };
 
-pub(super) const Bergmolch : Kartenvorlage = Kartenvorlage {
+pub(super) const Bergmolch: Kartenvorlage = Kartenvorlage {
 	kosten: 1,
 	typen: &[Amphibie, Alpen],
 	soforteffekt: Effekt::Keiner,
@@ -141,7 +140,7 @@ pub(super) const Bergmolch : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Bergmolch",
 };
 
-pub(super) const Edelweiß : Kartenvorlage = Kartenvorlage {
+pub(super) const Edelweiß: Kartenvorlage = Kartenvorlage {
 	kosten: 1,
 	typen: &[Pflanze, Alpen],
 	soforteffekt: Effekt::KartenZiehen(1),
@@ -151,7 +150,7 @@ pub(super) const Edelweiß : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Edelweiß",
 };
 
-pub(super) const Enzian : Kartenvorlage = Kartenvorlage {
+pub(super) const Enzian: Kartenvorlage = Kartenvorlage {
 	kosten: 0,
 	typen: &[Pflanze, Alpen],
 	soforteffekt: Effekt::EinsKostenlosAblegen(Schmetterling),
@@ -163,7 +162,7 @@ pub(super) const Enzian : Kartenvorlage = Kartenvorlage {
 
 // Bäume
 
-pub(super) const Zirbelkiefer : GanzeKarte = GanzeKarte::Hauptpflanze(&Karte { 
+pub(super) const Zirbelkiefer: GanzeKarte = GanzeKarte::Hauptpflanze(&Karte {
 	kosten: 2,
 	baumsymbol: Baumsymbol::Zirbelkiefer,
 	typen: &[Baum, Alpen],
@@ -174,7 +173,7 @@ pub(super) const Zirbelkiefer : GanzeKarte = GanzeKarte::Hauptpflanze(&Karte {
 	bezeichnung: "Zirbelkiefer",
 });
 
-pub(super) const EuropäischeLärche : GanzeKarte = GanzeKarte::Hauptpflanze(&Karte {
+pub(super) const EuropäischeLärche: GanzeKarte = GanzeKarte::Hauptpflanze(&Karte {
 	kosten: 1,
 	baumsymbol: Baumsymbol::Lärche,
 	typen: &[Baum, Alpen],

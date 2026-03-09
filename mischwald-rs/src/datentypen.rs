@@ -15,22 +15,22 @@ pub enum GanzeKarte {
 impl GanzeKarte {
 	pub fn halbkarte(&self, pos: Kartenposition) -> &'static Karte {
 		match (self, pos) {
-			(GanzeKarte::ZweigeteiltH { links: k, .. }, Kartenposition::Links) |
-			(GanzeKarte::ZweigeteiltH { rechts: k, .. }, Kartenposition::Rechts) |
-			(GanzeKarte::ZweigeteiltV { oben: k, .. }, Kartenposition::Oben) |
-			(GanzeKarte::ZweigeteiltV { unten: k, .. }, Kartenposition::Unten) =>
-			{
-				k
-			},
+			(GanzeKarte::ZweigeteiltH { links: k, .. }, Kartenposition::Links)
+			| (GanzeKarte::ZweigeteiltH { rechts: k, .. }, Kartenposition::Rechts)
+			| (GanzeKarte::ZweigeteiltV { oben: k, .. }, Kartenposition::Oben)
+			| (GanzeKarte::ZweigeteiltV { unten: k, .. }, Kartenposition::Unten) => k,
 			_ => panic!("Ungültike Kartenposition für Ganze Karte"),
 		}
 	}
-	
+
 	pub fn hat_typsymbol(&self, symbol: &Typsymbol) -> bool {
 		match self {
 			Self::Hauptpflanze(a) => a.typen.contains(symbol),
-			Self::ZweigeteiltH { links: a, rechts: b } |
-			Self::ZweigeteiltV { oben: a, unten: b } => {
+			Self::ZweigeteiltH {
+				links: a,
+				rechts: b,
+			}
+			| Self::ZweigeteiltV { oben: a, unten: b } => {
 				a.typen.contains(symbol) || b.typen.contains(symbol)
 			}
 			Self::Winter => false,
@@ -42,7 +42,7 @@ impl GanzeKarte {
 pub enum Baumsymbol {
 	// Für Setzlinge
 	Keins,
-	
+
 	Ahorn,
 	Birke,
 	Buche,
@@ -51,7 +51,7 @@ pub enum Baumsymbol {
 	Kastanie,
 	Linde,
 	Tanne,
-	
+
 	// Alpinerweiterung
 	Lärche,
 	Zirbelkiefer,
@@ -70,10 +70,10 @@ pub enum Typsymbol {
 	Pilz,
 	Schmetterling,
 	Vogel,
-	
+
 	// Alpinerweiterung
 	Alpen,
-	
+
 	// Waldranderweiterung
 	Waldrand,
 	Strauch, // Wird in der Anleitung „Sträucher“ genannt.
@@ -143,7 +143,6 @@ pub enum Effekt {
 	Bedingung(&'static Effekt, Bedingung),
 }
 
-
 // TODO Evtl. Structartige Enumvarianten statt Tupleartigen?
 #[derive(Clone, Copy)]
 pub enum Dauereffekt {
@@ -161,7 +160,7 @@ impl Dauereffekt {
 			_ => true,
 		}
 	}
-	
+
 	pub(crate) fn endeffekt(&self) -> &Effekt {
 		match self {
 			Self::Keiner => panic!("Dauereffekt::Keiner hat keinen Endeffekt"),
@@ -201,10 +200,14 @@ pub enum Punkteffekt {
 	ProName(u32, &'static str),
 	ProKarteAnHauptpflanze(u32),
 	ProVollbelegtemBaum(u32),
-	// z. B. Waldameise: 2 Punkte je Karte unten an einem Baum 
+	// z. B. Waldameise: 2 Punkte je Karte unten an einem Baum
 	ProKartenAnTypPosition(u32, Typsymbol, Kartenposition),
 	ProKarteInHöhle(u32),
-	BedingungOder{bedingung: Bedingung, wenn: u32, sonst: u32},
+	BedingungOder {
+		bedingung: Bedingung,
+		wenn: u32,
+		sonst: u32,
+	},
 	// Bewertung nach Anzahl der Karten(nach Namen)
 	// Wenn die Anzahl mehr als das Maximum der Bewertungsliste ist wird das höchste Element gewählt
 	SammlungName(&'static [u32]),

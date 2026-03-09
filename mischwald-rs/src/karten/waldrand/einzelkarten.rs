@@ -9,7 +9,7 @@ use Typsymbol::*;
 
 // Horizontal
 
-pub(super) const Wisent : Kartenvorlage = Kartenvorlage {
+pub(super) const Wisent: Kartenvorlage = Kartenvorlage {
 	kosten: 3,
 	typen: &[Paarhufer, Waldrand],
 	soforteffekt: Effekt::Extrazug,
@@ -19,7 +19,7 @@ pub(super) const Wisent : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Wisent",
 };
 
-pub(super) const Bache : Kartenvorlage = Kartenvorlage {
+pub(super) const Bache: Kartenvorlage = Kartenvorlage {
 	kosten: 2,
 	typen: &[Paarhufer, Waldrand],
 	soforteffekt: Effekt::LichtungLeeren,
@@ -29,7 +29,7 @@ pub(super) const Bache : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Bache",
 };
 
-pub(super) const Bienenschwarm : Kartenvorlage = Kartenvorlage {
+pub(super) const Bienenschwarm: Kartenvorlage = Kartenvorlage {
 	kosten: 1,
 	typen: &[Insekt, Waldrand],
 	soforteffekt: Effekt::LichtungHöhleTypen(&[Pflanze, Strauch, Baum]),
@@ -39,7 +39,7 @@ pub(super) const Bienenschwarm : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Bienenschwarm",
 };
 
-pub(super) const Schnake : Kartenvorlage = Kartenvorlage {
+pub(super) const Schnake: Kartenvorlage = Kartenvorlage {
 	kosten: 1,
 	typen: &[Insekt, Waldrand],
 	soforteffekt: Effekt::BeliebigKostenlosAblegen(Fledermaus),
@@ -49,7 +49,7 @@ pub(super) const Schnake : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Schnake",
 };
 
-pub(super) const Waldiltis : Kartenvorlage = Kartenvorlage {
+pub(super) const Waldiltis: Kartenvorlage = Kartenvorlage {
 	kosten: 2,
 	typen: &[Pfotentier, Waldrand],
 	soforteffekt: Effekt::Keiner,
@@ -59,7 +59,7 @@ pub(super) const Waldiltis : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Waldiltis",
 };
 
-pub(super) const Frischling : Kartenvorlage = Kartenvorlage {
+pub(super) const Frischling: Kartenvorlage = Kartenvorlage {
 	kosten: 0,
 	typen: &[Paarhufer, Waldrand],
 	soforteffekt: Effekt::Keiner,
@@ -69,7 +69,7 @@ pub(super) const Frischling : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Frischling",
 };
 
-pub(super) const Zwergfledermaus : Kartenvorlage = Kartenvorlage {
+pub(super) const Zwergfledermaus: Kartenvorlage = Kartenvorlage {
 	kosten: 1,
 	typen: &[Fledermaus, Waldrand],
 	soforteffekt: Effekt::Keiner,
@@ -79,7 +79,7 @@ pub(super) const Zwergfledermaus : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Zwergfledermaus",
 };
 
-pub(super) const Wildkatze : Kartenvorlage = Kartenvorlage {
+pub(super) const Wildkatze: Kartenvorlage = Kartenvorlage {
 	kosten: 1,
 	typen: &[Pfotentier, Waldrand],
 	soforteffekt: Effekt::KartenZiehenLichtung(1),
@@ -91,7 +91,7 @@ pub(super) const Wildkatze : Kartenvorlage = Kartenvorlage {
 
 // Vertikal
 
-pub(super) const Schleiereule : Kartenvorlage = Kartenvorlage {
+pub(super) const Schleiereule: Kartenvorlage = Kartenvorlage {
 	kosten: 2,
 	typen: &[Vogel, Waldrand],
 	soforteffekt: Effekt::Bedingung(&Effekt::Extrazug, Bedingung::MinAnzTyp(1, Fledermaus)),
@@ -101,7 +101,7 @@ pub(super) const Schleiereule : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Schleiereule",
 };
 
-pub(super) const Fingerhut : Kartenvorlage = Kartenvorlage {
+pub(super) const Fingerhut: Kartenvorlage = Kartenvorlage {
 	kosten: 0,
 	typen: &[Pflanze, Waldrand],
 	soforteffekt: Effekt::Keiner,
@@ -111,7 +111,7 @@ pub(super) const Fingerhut : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Fingerhut",
 };
 
-pub(super) const Nachtigall : Kartenvorlage = Kartenvorlage {
+pub(super) const Nachtigall: Kartenvorlage = Kartenvorlage {
 	kosten: 1,
 	typen: &[Vogel, Waldrand],
 	soforteffekt: Effekt::Keiner,
@@ -121,7 +121,7 @@ pub(super) const Nachtigall : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Nachtigall",
 };
 
-pub(super) const Schermaus : Kartenvorlage = Kartenvorlage {
+pub(super) const Schermaus: Kartenvorlage = Kartenvorlage {
 	kosten: 2,
 	typen: &[Pfotentier, Waldrand],
 	soforteffekt: Effekt::BeliebigSprösslingeAusspielen,
@@ -131,7 +131,7 @@ pub(super) const Schermaus : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Schermaus",
 };
 
-pub(super) const Landkärtchen : Kartenvorlage = Kartenvorlage {
+pub(super) const Landkärtchen: Kartenvorlage = Kartenvorlage {
 	kosten: 0,
 	typen: &[Insekt, Schmetterling, Waldrand],
 	soforteffekt: Effekt::Keiner,
@@ -141,7 +141,7 @@ pub(super) const Landkärtchen : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Landkärtchen",
 };
 
-pub(super) const Brennessel : Kartenvorlage = Kartenvorlage {
+pub(super) const Brennessel: Kartenvorlage = Kartenvorlage {
 	kosten: 0,
 	typen: &[Pflanze, Waldrand],
 	soforteffekt: Effekt::Keiner,
@@ -151,7 +151,7 @@ pub(super) const Brennessel : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Brennessel",
 };
 
-pub(super) const Elster : Kartenvorlage = Kartenvorlage {
+pub(super) const Elster: Kartenvorlage = Kartenvorlage {
 	kosten: 1,
 	typen: &[Vogel, Waldrand],
 	soforteffekt: Effekt::KartenZiehenLichtung(1),
@@ -161,7 +161,7 @@ pub(super) const Elster : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Elster",
 };
 
-pub(super) const GrünesHeupferd : Kartenvorlage = Kartenvorlage {
+pub(super) const GrünesHeupferd: Kartenvorlage = Kartenvorlage {
 	kosten: 1,
 	typen: &[Insekt, Waldrand],
 	soforteffekt: Effekt::EinsKostenlosAblegen(Vogel),
@@ -172,7 +172,7 @@ pub(super) const GrünesHeupferd : Kartenvorlage = Kartenvorlage {
 };
 // Sträucher
 
-pub(super) const Schlehdorn : Kartenvorlage = Kartenvorlage { 
+pub(super) const Schlehdorn: Kartenvorlage = Kartenvorlage {
 	kosten: 2,
 	typen: &[Waldrand, Strauch],
 	soforteffekt: Effekt::Keiner,
@@ -182,7 +182,7 @@ pub(super) const Schlehdorn : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Schlehdorn",
 };
 
-pub(super) const Haselnuss : Kartenvorlage = Kartenvorlage { 
+pub(super) const Haselnuss: Kartenvorlage = Kartenvorlage {
 	kosten: 2,
 	typen: &[Waldrand, Strauch],
 	soforteffekt: Effekt::Keiner,
@@ -192,7 +192,7 @@ pub(super) const Haselnuss : Kartenvorlage = Kartenvorlage {
 	bezeichnung: "Haselnuss",
 };
 
-pub(super) const Holunder : Kartenvorlage = Kartenvorlage { 
+pub(super) const Holunder: Kartenvorlage = Kartenvorlage {
 	kosten: 2,
 	typen: &[Waldrand, Strauch],
 	soforteffekt: Effekt::Keiner,

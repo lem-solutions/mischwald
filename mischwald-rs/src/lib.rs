@@ -1,10 +1,9 @@
-
 pub mod datentypen;
 pub mod karten;
 
-mod spielstand;
-mod spiellogik;
 mod spieler;
+mod spiellogik;
+mod spielstand;
 
-pub use spielstand::Spielstand;
 pub use spieler::Spieler;
+pub use spielstand::Spielstand;
