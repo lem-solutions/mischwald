@@ -2,11 +2,11 @@ pub mod alpin;
 pub mod hauptspiel;
 pub mod waldrand;
 
-use super::datentypen::*;
+use crate::prelude::*;
 
 struct Kartenvorlage {
 	pub kosten: u32,
-	pub typen: Typsymbole,
+	pub typen: &'static [Typsymbol],
 	pub soforteffekt: Effekt,
 	pub dauereffekt: Dauereffekt,
 	pub bonus: Effekt,
@@ -42,3 +42,111 @@ pub const SETZLING: Karte = Karte {
 	punkte: Punkteffekt::Keiner,
 	bezeichnung: "Setzling",
 };
+
+pub enum GanzeKarte {
+	Hauptpflanze(&'static Karte),
+	ZweigeteiltH {
+		links: &'static Karte,
+		rechts: &'static Karte,
+	},
+	ZweigeteiltV {
+		oben: &'static Karte,
+		unten: &'static Karte,
+	},
+	Winter,
+}
+impl GanzeKarte {
+	pub fn halbkarte(&self, pos: Kartenposition) -> &'static Karte {
+		match (self, pos) {
+			(GanzeKarte::ZweigeteiltH { links: k, .. }, Kartenposition::Links)
+			| (GanzeKarte::ZweigeteiltH { rechts: k, .. }, Kartenposition::Rechts)
+			| (GanzeKarte::ZweigeteiltV { oben: k, .. }, Kartenposition::Oben)
+			| (GanzeKarte::ZweigeteiltV { unten: k, .. }, Kartenposition::Unten) => k,
+			_ => panic!("Ungültike Kartenposition für Ganze Karte"),
+		}
+	}
+
+	pub fn hat_typsymbol(&self, symbol: &Typsymbol) -> bool {
+		match self {
+			Self::Hauptpflanze(a) => a.typen.contains(symbol),
+			Self::ZweigeteiltH {
+				links: a,
+				rechts: b,
+			}
+			| Self::ZweigeteiltV { oben: a, unten: b } => {
+				a.typen.contains(symbol) || b.typen.contains(symbol)
+			}
+			Self::Winter => false,
+		}
+	}
+}
+
+#[derive(Clone, Copy, PartialEq)]
+pub enum Baumsymbol {
+	// Für Setzlinge
+	Keins,
+
+	Ahorn,
+	Birke,
+	Buche,
+	Douglasie,
+	Eiche,
+	Kastanie,
+	Linde,
+	Tanne,
+
+	// Alpinerweiterung
+	Lärche,
+	Zirbelkiefer,
+}
+
+#[derive(Clone, Copy, PartialEq)]
+pub enum Typsymbol {
+	Amphibie,
+	Baum,
+	Fledermaus,
+	Hirsch,
+	Insekt,
+	Paarhufer,
+	Pflanze,
+	Pfotentier,
+	Pilz,
+	Schmetterling,
+	Vogel,
+
+	// Alpinerweiterung
+	Alpen,
+
+	// Waldranderweiterung
+	Waldrand,
+	Strauch, // Wird in der Anleitung „Sträucher“ genannt.
+}
+
+pub struct Karte {
+	pub kosten: u32,
+	pub baumsymbol: Baumsymbol,
+	pub typen: &'static [Typsymbol],
+	pub soforteffekt: Effekt,
+	pub dauereffekt: Dauereffekt,
+	pub bonus: Effekt,
+	pub punkte: Punkteffekt,
+	pub bezeichnung: &'static str, // wird für manche Effekte gebraucht
+}
+
+#[derive(Clone, Copy, PartialEq)]
+pub enum Kartenposition {
+	Oben,
+	Unten,
+	Links,
+	Rechts,
+}
+impl Kartenposition {
+	pub fn gegenüber(&self) -> Self {
+		match self {
+			Kartenposition::Oben => Kartenposition::Unten,
+			Kartenposition::Unten => Kartenposition::Oben,
+			Kartenposition::Links => Kartenposition::Rechts,
+			Kartenposition::Rechts => Kartenposition::Links,
+		}
+	}
+}

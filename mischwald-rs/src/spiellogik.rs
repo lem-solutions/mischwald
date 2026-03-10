@@ -1,7 +1,5 @@
-use smallvec::SmallVec;
-
 use crate::Spieler;
-use crate::datentypen::*;
+use crate::prelude::*;
 use crate::spieler::*;
 use crate::spielstand::*;
 
@@ -10,14 +8,6 @@ type OptionSpielende<T> = Option<T>;
 
 /// Typalias um die Bedeutung von bestimmten Rückgabewerten zu verdeutlichen.
 type EffektGenutzt = bool;
-
-/// Manche Bedingungen hängen von der Position der Karte auf der die Bedingung
-/// steht ab. `Bedingungskontext` beschreibt diese Position
-#[derive(Copy, Clone)]
-struct Bedingungskontext {
-	pub(crate) hauptpflanze_idx: usize,
-	pub(crate) kartenpos: Option<Kartenposition>,
-}
 
 struct Zugstatus {
 	extrazug: bool,
@@ -280,42 +270,10 @@ impl Spielstand {
 		//            ja, aber dieses Detail ist nicht unbedingt den
 		//            Implementierungsaufwand wert.
 		for dauereffekt in self.nächster_spielerstand().dauereffekte.clone() {
-			match dauereffekt {
-				Dauereffekt::Keiner => unreachable!(
-					"`Dauereffekt::Keiner` sollte nie in `Spielerstand::dauereffekte` auftauchen"
-				),
-				Dauereffekt::BeiKarteAusspielenTyp(typsymbol, effekt) => {
-					if karte.typen.contains(typsymbol) {
-						self.effekt_ausüben(
-							spieler,
-							zugstatus,
-							effekt,
-							bedingungskontext,
-						)?;
-					}
-				}
-				Dauereffekt::BeiKarteAusspielenPositionTyp(
-					pos_bedingung,
-					hp_typ,
-					effekt,
-				) => match ziel {
-					Ausspielziel::NeueHauptpflanze => {}
-					Ausspielziel::AnHauptpflanzeAnlegen {
-						hauptpflanze_idx,
-						ref pos,
-					} => {
-						let hauptfplanze =
-							&self.nächster_spielerstand().wald[hauptpflanze_idx].hauptpflanze;
-						if pos == pos_bedingung && hauptfplanze.typen.contains(hp_typ) {
-							self.effekt_ausüben(
-								spieler,
-								zugstatus,
-								effekt,
-								bedingungskontext,
-							)?;
-						}
-					}
-				},
+			assert!(!matches!(dauereffekt, Dauereffekt::Keiner));
+			if let Some(effekt) = dauereffekt.ausgelöster_effekt(self, karte, &ziel)
+			{
+				self.effekt_ausüben(spieler, zugstatus, effekt, bedingungskontext)?;
 			}
 		}
 
@@ -583,7 +541,7 @@ impl Spielstand {
 				self.karten_ziehen_n(1)?;
 			}
 			Effekt::Bedingung(effekt, bedingung) => {
-				if self.bedingung_prüfen(&bedingung, bedingungskontext) {
+				if bedingung.prüfen(self, &bedingungskontext) {
 					self.effekt_ausüben(
 						spieler,
 						zugstatus,
@@ -787,91 +745,6 @@ impl Spielstand {
 			self.nächster_spieler = 0;
 			self.erste_runde = false;
 		}
-	}
-
-	fn bedingung_prüfen(
-		&self,
-		bedingung: &Bedingung,
-		kontext: Bedingungskontext,
-	) -> bool {
-		match bedingung {
-			Bedingung::MeisteNamen(name) => {
-				self.bedinung_meiste(|&k| &k.bezeichnung == name)
-			}
-			Bedingung::MeisteAnzTyp(typ) => {
-				self.bedinung_meiste(|&k| k.typen.contains(typ))
-			}
-			Bedingung::MinAnzNamen(min, name) => {
-				self.bedingung_min_anz(*min, |&k| &k.bezeichnung == name)
-			}
-			Bedingung::MinAnzTypVerschieden(min, typ) => {
-				let mut gesehen: SmallVec<[&'static str; 5]> = SmallVec::new();
-				let f = |&k: &&Karte| {
-					let neu = k.typen.contains(typ) && !gesehen.contains(&k.bezeichnung);
-					if neu {
-						gesehen.push(k.bezeichnung);
-					}
-					neu
-				};
-				self.bedingung_min_anz(*min, f)
-			}
-			Bedingung::MinAnzTyp(min, typ) => {
-				self.bedingung_min_anz(*min, |&k| k.typen.contains(typ))
-			}
-			Bedingung::TypGegenüber(typsymbol) => self.nächster_spielerstand().wald
-				[kontext.hauptpflanze_idx]
-				.seite(kontext.kartenpos.expect(
-					"Kartenposition muss für `Bedingung::TypGegenüber` gegeben sein",
-				))
-				.iter()
-				.any(|&k| k.typen.contains(typsymbol)),
-			Bedingung::MinAnzNamenAnPlatz(anz, name) => {
-				self.nächster_spielerstand().wald[kontext.hauptpflanze_idx]
-					.seite(kontext.kartenpos.expect(
-						"Kartenposition muss für `Bedingung::MinAnzNamenAnPlatz` gegeben sein",
-					))
-					.iter()
-					.filter(|k| &k.bezeichnung == name)
-					.count()
-					>= *anz as usize
-			}
-			Bedingung::Hauptpflanzenname(name) => {
-				&self.nächster_spielerstand().wald[kontext.hauptpflanze_idx]
-					.hauptpflanze
-					.bezeichnung
-					== name
-			}
-			Bedingung::Hauptpflanzentyp(typen) => self.nächster_spielerstand().wald
-				[kontext.hauptpflanze_idx]
-				.hauptpflanze
-				.typen
-				.iter()
-				.any(|&t| typen.contains(&t)),
-		}
-	}
-
-	fn bedinung_meiste<B>(&self, b: B) -> bool
-	where
-		B: for<'a> Fn(&'a &'static Karte) -> bool,
-	{
-		// unwrap: es muss mindestens einen Spieler geben(eig. sogar zwei),
-		//         deswegen kann `.max()` nie `None` sein.
-		let max = self
-			.spieler
-			.iter()
-			.map(|s| s.iter_wald().filter(&b).count())
-			.max()
-			.unwrap();
-		let anz = self.nächster_spielerstand().iter_wald().filter(&b).count();
-
-		anz == max
-	}
-
-	fn bedingung_min_anz<B>(&self, min: u32, b: B) -> bool
-	where
-		B: for<'a> FnMut(&'a &'static Karte) -> bool,
-	{
-		self.nächster_spielerstand().iter_wald().filter(b).count() as u32 >= min
 	}
 }
 

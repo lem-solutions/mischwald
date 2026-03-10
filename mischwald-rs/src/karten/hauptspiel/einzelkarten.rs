@@ -1,7 +1,7 @@
 #![allow(non_upper_case_globals)]
 
-use crate::datentypen::*;
 use crate::karten::*;
+use crate::prelude::*;
 use Typsymbol::*;
 
 // TODO Sonderfunktionen:

@@ -1,8 +1,5 @@
-use noalloc_vec_rs::vec::Vec as MiniVec;
-use smallvec::SmallVec;
-
 use crate::Spielstand;
-use crate::datentypen::*;
+use crate::prelude::*;
 
 // Diese API zwingt die `Spieler`-Implementierung Indizes in `Vec`s aus
 // `Spielstand` zurück zu geben. Dies und einpaar andere Dinge machen es

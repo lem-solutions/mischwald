@@ -1,8 +1,5 @@
-use noalloc_vec_rs::vec::Vec as MiniVec;
+use crate::{karten, prelude::*};
 use rand::seq::SliceRandom;
-use smallvec::SmallVec;
-
-use crate::{datentypen::*, karten};
 
 // +3 für die Winterkarten nicht nötig, da das Maximum für das Spiel nie ausgereizt wird.
 const MAX_ZIEHSTAPEL: usize = karten::hauptspiel::KARTEN.len()
