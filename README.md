@@ -8,7 +8,6 @@ Geplant ist die Implementierung von Spieler-KIs(sowohl algorithmisch als auch ML
 
 ## TODO
 
-- Bewertung(Zählen der Punkte am Ende des Spiels) implementieren
 - Abkapselung des `Spieler`-Trait von Implementierungsdetails aus `Spielstand` und wenn möglich ungültige Züge über das Typsystem verhindern.
 - Verwendete Begriffe konsistent machen
 	- Halbkarte, Karte, GanzeKarte

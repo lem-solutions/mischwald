@@ -100,7 +100,7 @@ pub enum Baumsymbol {
 	Zirbelkiefer,
 }
 
-#[derive(Clone, Copy, PartialEq)]
+#[derive(Clone, Copy, PartialEq, Eq, Hash)]
 pub enum Typsymbol {
 	Amphibie,
 	Baum,
