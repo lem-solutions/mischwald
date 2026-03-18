@@ -154,7 +154,7 @@ impl Hauptpflanze {
 }
 
 pub struct Spielerstand {
-	pub(crate) handkarten: MiniVec<&'static GanzeKarte, 10>,
+	pub(crate) handkarten: SmallVec<[&'static GanzeKarte; 10]>,
 	pub(crate) höhle: u32,
 	pub(crate) wald: SmallVec<[Hauptpflanze; 20]>,
 	pub(crate) dauereffekte: SmallVec<[&'static Dauereffekt; 10]>,
@@ -162,8 +162,8 @@ pub struct Spielerstand {
 impl Spielerstand {
 	fn neu(handkarten: &[&'static GanzeKarte]) -> Self {
 		assert_eq!(handkarten.len(), 6);
-		let mut handkarten_v = MiniVec::new();
-		handkarten_v.extend(handkarten);
+		let mut handkarten_v = SmallVec::new();
+		handkarten_v.extend_from_slice(handkarten);
 		Spielerstand {
 			handkarten: handkarten_v,
 			höhle: 0,
@@ -262,7 +262,7 @@ impl Spielerstand {
 impl Default for Spielerstand {
 	fn default() -> Self {
 		Spielerstand {
-			handkarten: MiniVec::new(),
+			handkarten: SmallVec::new(),
 			höhle: 0,
 			wald: SmallVec::new(),
 			dauereffekte: SmallVec::new(),
@@ -271,9 +271,9 @@ impl Default for Spielerstand {
 }
 
 pub struct Spielstand {
-	pub(crate) ziehstapel: MiniVec<&'static GanzeKarte, MAX_ZIEHSTAPEL>,
+	pub(crate) ziehstapel: SmallVec<[&'static GanzeKarte; MAX_ZIEHSTAPEL]>,
 	pub(crate) lichtung: SmallVec<[&'static GanzeKarte; 15]>,
-	pub(crate) spieler: MiniVec<Spielerstand, MAX_SPIELER>,
+	pub(crate) spieler: SmallVec<[Spielerstand; MAX_SPIELER]>,
 	pub(crate) anz_winterkarten_gezogen: u32,
 	pub(crate) nächster_spieler: usize,
 	pub(crate) erste_runde: bool,
@@ -286,9 +286,9 @@ impl Spielstand {
 	) -> Self {
 		assert!((2..=5).contains(&anz_spieler));
 
-		let mut ziehstapel: MiniVec<&'static GanzeKarte, MAX_ZIEHSTAPEL> =
-			MiniVec::new();
-		ziehstapel.extend(erweiterungen.iter().flat_map(|s| s.iter()));
+		let mut ziehstapel: SmallVec<[&'static GanzeKarte; MAX_ZIEHSTAPEL]> =
+			SmallVec::new();
+		ziehstapel.extend(erweiterungen.iter().flat_map(|s| s.iter()).copied());
 		ziehstapel.shuffle(rng);
 		ziehstapel.truncate(
 			ziehstapel.len() - anz_karten_weglegen(anz_spieler, erweiterungen.len()),
@@ -296,29 +296,17 @@ impl Spielstand {
 
 		let wintergrenze = ziehstapel.len() / 3;
 
-		let mut spieler = MiniVec::new();
+		let mut spieler = SmallVec::new();
 		for _ in 0..anz_spieler {
 			let handkarten = &ziehstapel[ziehstapel.len() - 6..];
-			spieler
-				.push(Spielerstand::neu(handkarten))
-				.map_err(|_| ())
-				.unwrap();
+			spieler.push(Spielerstand::neu(handkarten));
 			ziehstapel.truncate(ziehstapel.len() - 6);
 		}
 
-		// unwrap: Wenn das Maximum ausgereizt war, wurden bereits genug Karten weggelegt
+		ziehstapel.insert(wintergrenze, &GanzeKarte::Winter);
+		ziehstapel.insert(rng.random_range(..wintergrenze), &GanzeKarte::Winter);
 		ziehstapel
-			.insert(wintergrenze, &GanzeKarte::Winter)
-			.map_err(|_| ())
-			.unwrap();
-		ziehstapel
-			.insert(rng.random_range(..wintergrenze), &GanzeKarte::Winter)
-			.map_err(|_| ())
-			.unwrap();
-		ziehstapel
-			.insert(rng.random_range(..wintergrenze + 1), &GanzeKarte::Winter)
-			.map_err(|_| ())
-			.unwrap();
+			.insert(rng.random_range(..wintergrenze + 1), &GanzeKarte::Winter);
 
 		Spielstand {
 			ziehstapel,

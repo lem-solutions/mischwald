@@ -103,8 +103,10 @@ pub trait Spieler {
 	/// Die Länge des Zurückgegebenen `noalloc_vec_rs::vec::Vec` muss der Anzahl
 	/// Handkarten des Spielers entsprechen und bestimmt welche Karten abgelegt
 	/// werden(true→ablegen, false→nicht ablegen).
-	fn handkarten_höhle(&mut self, spielstand: &Spielstand)
-	-> MiniVec<bool, 10>;
+	fn handkarten_höhle(
+		&mut self,
+		spielstand: &Spielstand,
+	) -> SmallVec<[bool; 10]>;
 
 	/// Der Spieler darf bis zu `anz_karten` karten aus der Lichtung in seine
 	/// Höhle legen.

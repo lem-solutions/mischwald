@@ -14,7 +14,6 @@ Geplant ist die Implementierung von Spieler-KIs(sowohl algorithmisch als auch ML
 	- Setzling, Sprössling
 	- Ablegen, Ausspielen
 	- bezeichnung, name
-- MiniVec/SmallVec ist verwirrend(Ich bekenne mich Schuldig wegen verfrühter Optimierung)
 - Doc-Kommentare insb. für Bedingungen und Punkteffekte.
 - Tests
 

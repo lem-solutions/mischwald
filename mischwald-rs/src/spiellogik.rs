@@ -80,8 +80,7 @@ impl Spielstand {
 		self
 			.nächster_spielerstand_mut()
 			.handkarten
-			.remove(karten_idx)
-			.unwrap();
+			.remove(karten_idx);
 
 		self
 			.nächster_spielerstand_mut()
@@ -111,8 +110,7 @@ impl Spielstand {
 		let karte = self
 			.nächster_spielerstand_mut()
 			.handkarten
-			.remove(ausspiel_info.karten_idx)
-			.unwrap();
+			.remove(ausspiel_info.karten_idx);
 		match ausspiel_info.ausspielziel {
 			Ausspielziel::NeueHauptpflanze => {
 				assert!(matches!(karte, GanzeKarte::Hauptpflanze(_)));
@@ -409,12 +407,7 @@ impl Spielstand {
 				while self.nächster_spielerstand().handkarten.len() < 10 && n > 0 {
 					if let Some(idx) = spieler.aus_lichtung_ziehen(self) {
 						let karte = self.lichtung.swap_remove(idx);
-						self
-							.nächster_spielerstand_mut()
-							.handkarten
-							.push(karte)
-							.map_err(|_| ())
-							.unwrap();
+						self.nächster_spielerstand_mut().handkarten.push(karte);
 					} else {
 						break;
 					}
@@ -525,12 +518,7 @@ impl Spielstand {
 					let index = spieler.lichtung_hand_typ(self, typ);
 					let karte = self.lichtung.swap_remove(index);
 					assert!(karte.hat_typsymbol(&typ));
-					self
-						.nächster_spielerstand_mut()
-						.handkarten
-						.push(karte)
-						.map_err(|_| ())
-						.unwrap()
+					self.nächster_spielerstand_mut().handkarten.push(karte);
 				}
 			}
 			Effekt::LichtungLeeren => {
@@ -588,8 +576,7 @@ impl Spielstand {
 		let karte = self
 			.nächster_spielerstand_mut()
 			.handkarten
-			.remove(ausspielen_info.karten_idx)
-			.unwrap();
+			.remove(ausspielen_info.karten_idx);
 
 		match (karte, ausspielen_info.ausspielziel) {
 			(GanzeKarte::Hauptpflanze(hp), Ausspielziel::NeueHauptpflanze) => {
@@ -622,12 +609,7 @@ impl Spielstand {
 		while self.nächster_spielerstand().handkarten.len() < 10 && anz_karten > 0
 		{
 			let karte = self.karte_ziehen()?;
-			self
-				.nächster_spielerstand_mut()
-				.handkarten
-				.push(karte)
-				.map_err(|_| ())
-				.unwrap();
+			self.nächster_spielerstand_mut().handkarten.push(karte);
 			anz_karten -= 1;
 		}
 		Some(())
@@ -650,12 +632,7 @@ impl Spielstand {
 				}
 			}
 		};
-		self
-			.nächster_spielerstand_mut()
-			.handkarten
-			.push(karte)
-			.map_err(|_| ())
-			.unwrap();
+		self.nächster_spielerstand_mut().handkarten.push(karte);
 
 		Some(())
 	}
@@ -674,8 +651,7 @@ impl Spielstand {
 			let karte = self
 				.nächster_spielerstand_mut()
 				.handkarten
-				.remove(karte_idx)
-				.unwrap();
+				.remove(karte_idx);
 			passend = passend
 				&& match karte {
 					GanzeKarte::Hauptpflanze(k) => k.baumsymbol == baumsymbol,
@@ -714,12 +690,7 @@ impl Spielstand {
 				let karte = self
 					.karte_ziehen()
 					.expect("Der Winter solle niemals in der ersten Runde kommen");
-				self
-					.nächster_spielerstand_mut()
-					.handkarten
-					.push(karte)
-					.map_err(|_| ())
-					.unwrap();
+				self.nächster_spielerstand_mut().handkarten.push(karte);
 			}
 		}
 	}

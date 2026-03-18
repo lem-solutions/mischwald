@@ -11,7 +11,6 @@ pub use spieler::Spieler;
 pub use spielstand::Spielstand;
 
 pub mod prelude {
-	pub use noalloc_vec_rs::vec::Vec as MiniVec;
 	pub use smallvec::SmallVec;
 
 	pub use crate::bedingung::*;

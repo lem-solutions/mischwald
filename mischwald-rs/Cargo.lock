@@ -30,16 +30,9 @@ checksum = "37c93d8daa9d8a012fd8ab92f088405fb202ea0b6ab73ee2482ae66af4f42091"
 name = "mischwald-rs"
 version = "0.1.0"
 dependencies = [
- "noalloc-vec-rs",
  "rand",
  "smallvec",
 ]
-
-[[package]]
-name = "noalloc-vec-rs"
-version = "0.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "17f79c6dedfcd6c29b9cb6c08dbcc52c953f10704bdc69d8d438f1a715d6e284"
 
 [[package]]
 name = "ppv-lite86"
